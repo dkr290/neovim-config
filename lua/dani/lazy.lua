@@ -11,4 +11,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("dani.plugins")
+require("lazy").setup("dani.plugins", {
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+   change_detection = {
+    notify = false,
+  },
+
+})
