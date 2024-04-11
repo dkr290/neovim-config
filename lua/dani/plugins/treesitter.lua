@@ -31,7 +31,6 @@ return {
         "css",
         "markdown",
         "markdown_inline",
-        "graphql",
         "bash",
         "lua",
         "vim",
@@ -42,6 +41,7 @@ return {
         "helm",
         "go",
         "terraform",
+        "cmake",
 
       },
       incremental_selection = {
