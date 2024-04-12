@@ -48,6 +48,9 @@ return {
 				-- "isort", -- python formatter
 				-- "black", -- python formatter
 				"gopls", -- go formatter
+				"pylint",
+				"eslint_d",
+				"golangci-lint",
 			},
 		})
 	end,
