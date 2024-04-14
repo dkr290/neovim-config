@@ -40,7 +40,7 @@ nvim
   (gc +3j) or (gc +2j) depends how many lines to comment out
   (gc +c) only current line
 - Open Mason or Lazy UI
-  :Lazy or :Mason
+  :Lazy or :Mason , LspInfo for the lsp server
   for Mason to install i to delete upper X
 - <CTRL +o> or <CTRL +i> jump backwords or forwards
 - for the todo comment

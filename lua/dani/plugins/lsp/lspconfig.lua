@@ -136,7 +136,10 @@ return {
 								path = "yaml-language-server",
 								config = {
 									schemas = {
-										kubernetes = "templates/**",
+										kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
+										["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+										["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+										["https://json.schemastore.org/chart.json"] = "Chart.yaml",
 									},
 									completion = true,
 									hover = true,
@@ -150,6 +153,7 @@ return {
 				lspconfig["yamlls"].setup({
 					capabilities = capabilities,
 					settings = {
+						redhat = { telemetry = { enabled = false } },
 						yaml = {
 							validate = true,
 							-- disable the schema store
@@ -159,14 +163,14 @@ return {
 							},
 							-- manually select schemas
 							schemas = {
+								kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
 								["https://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
-								["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
-								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-app*.*{yml,yaml}",
-								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-project*.*{yml,yaml}",
+								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
 								["https://json.schemastore.org/chart.json"] = "Chart.yaml",
 								["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.{yml,yaml}",
-								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json"] = "sealed*.*{yml,yaml}",
-								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/keda.sh/scaledobject_v1alpha1.json"] = "scaled*.*{yml,yaml}",
+								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json"] = "sealed*.{yml,yaml}",
+								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/keda.sh/scaledobject_v1alpha1.json"] = "scaled*.{yml,yaml}",
 							},
 						},
 					},
