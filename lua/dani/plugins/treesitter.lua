@@ -45,6 +45,7 @@ return {
 				"gosum",
 				"terraform",
 				"cmake",
+				"hcl",
 			},
 			incremental_selection = {
 				enable = true,
