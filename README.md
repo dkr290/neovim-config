@@ -8,6 +8,7 @@ sudo apt install nodejs
 sudo apt install ripgrep
 sudo apt install unzip
 sudo apt install xclip
+sudo apt install  luarocks lua5.1
 - install lazygit https://github.com/jesseduffield/lazygit/releases
 - install golangci-lint go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.57.2
 
