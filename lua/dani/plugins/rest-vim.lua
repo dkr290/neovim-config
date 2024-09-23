@@ -41,8 +41,10 @@ return {
 			yank_dry_run = true,
 		}
 		local opts = { noremap = true, silent = true }
-		vim.api.nvim_set_keymap("n", "<leader>rr", "<Plug>RestNvim", opts)
-		vim.api.nvim_set_keymap("n", "<leader>rp", "<Plug>RestNvimPreview", opts)
-		vim.api.nvim_set_keymap("n", "<leader>rl", "<Plug>RestNvimLast", opts)
+		vim.api.nvim_set_keymap("n", "<leader>rr", "<cmd>Rest run<CR>", opts)
+		vim.api.nvim_set_keymap("n", "<leader>ro", "<cmd>Rest logs<CR>", opts)
+		vim.api.nvim_set_keymap("n", "<leader>rl", "<cmd>Rest last<CR>", opts)
+		vim.api.nvim_set_keymap("n", "<leader>rO", "<cmd>Rest open<CR>", opts)
+		vim.api.nvim_set_keymap("n", "<leader>re", "<cmd>Rest env show<CR>", opts)
 	end,
 }

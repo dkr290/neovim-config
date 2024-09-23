@@ -20,6 +20,7 @@ return {
 			autotag = {
 				enable = true,
 			},
+			auto_install = true,
 			-- ensure these language parsers are installed
 			ensure_installed = {
 				"json",
@@ -46,6 +47,7 @@ return {
 				"terraform",
 				"cmake",
 				"hcl",
+				"bash",
 			},
 			incremental_selection = {
 				enable = true,

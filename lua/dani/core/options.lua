@@ -3,7 +3,7 @@ vim.cmd("let g:netrw_liststyle = 3")
 local opt = vim.opt
 
 opt.relativenumber = true
-opt.number=true
+opt.number = true
 
 -- tabs & indentation
 opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
@@ -28,7 +28,6 @@ opt.termguicolors = true
 opt.background = "dark" -- colorschemes that can be light or dark will be made dark
 opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 
-
 -- backspace
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
@@ -41,3 +40,9 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.http",
+	callback = function()
+		vim.cmd("set filetype=http")
+	end,
+})
