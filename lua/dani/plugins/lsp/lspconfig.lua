@@ -17,6 +17,7 @@ return {
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		local keymap = vim.keymap -- for conciseness
+		vim.filetype.add({ extension = { templ = "templ" } })
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -118,6 +119,36 @@ return {
 					},
 				})
 			end,
+			["html"] = function()
+				-- configure lua server (with special settings)
+				lspconfig["html"].setup({
+					capabilities = capabilities,
+					filetypes = { "html", "templ" },
+				})
+			end,
+			["templ"] = function()
+				lspconfig["templ"].setup({
+					capabilities = capabilities,
+					cmd = { "templ", "lsp" },
+					filetypes = { "templ" },
+					root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+				})
+			end,
+			["tailwindcss"] = function()
+				-- configure lua server (with special settings)
+				lspconfig["tailwindcss"].setup({
+					capabilities = capabilities,
+					filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+					settings = {
+						tailwindCSS = {
+							includeLanguages = {
+								templ = "html",
+							},
+						},
+					},
+				})
+			end,
+
 			["helm_ls"] = function()
 				lspconfig["helm_ls"].setup({
 					capabilities = capabilities,

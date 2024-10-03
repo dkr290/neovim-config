@@ -48,6 +48,7 @@ return {
 				"cmake",
 				"hcl",
 				"bash",
+				"templ",
 			},
 			incremental_selection = {
 				enable = true,

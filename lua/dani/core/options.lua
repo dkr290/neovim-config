@@ -46,3 +46,12 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		vim.cmd("set filetype=http")
 	end,
 })
+vim.filetype.add({
+	extension = {
+		templ = "templ",
+	},
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.templ",
+	command = "set filetype=templ",
+})
