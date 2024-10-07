@@ -23,5 +23,19 @@ return {
 		},
     -- stylua: ignore
     { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
+		-- Map <leader>bF to remove all buffers
+		{
+			"<leader>bF",
+			function()
+				-- Close all buffers using a loop
+				local bufremove = require("mini.bufremove")
+				for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+					if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_option(buf, "buflisted") then
+						bufremove.delete(buf, false) -- Remove buffer without confirmation
+					end
+				end
+			end,
+			desc = "Delete All Buffers",
+		},
 	},
 }
