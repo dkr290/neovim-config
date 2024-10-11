@@ -55,3 +55,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.templ",
 	command = "set filetype=templ",
 })
+
+vim.api.nvim_create_augroup("GoFormat", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.go",
+	command = "silent! !golines --ignore-generated -w %",
+	group = "GoFormat",
+})

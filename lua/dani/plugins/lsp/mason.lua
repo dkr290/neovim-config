@@ -51,6 +51,10 @@ return {
 				"pylint",
 				"eslint_d",
 				"golangci-lint",
+				"goimports",
+				"gofumpt",
+				"golines",
+				"gomodifytags",
 			},
 		})
 	end,
