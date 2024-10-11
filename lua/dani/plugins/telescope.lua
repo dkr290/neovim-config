@@ -28,6 +28,14 @@ return {
 
 		-- set keymaps
 		local keymap = vim.keymap -- for conciseness
+		keymap.set("n", "<leader>fg", function()
+			local current_word = vim.fn.expand("<cword>") -- Get the word under cursor
+			local builtin = require("telescope.builtin") -- Require builtin here
+			builtin.grep_string({
+				search = current_word, -- Search for the word under cursor
+				use_regex = false, -- Disable regex if not needed
+			})
+		end, { desc = "Grep string under cursor in current file" })
 
 		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
 		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
