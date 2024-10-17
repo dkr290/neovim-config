@@ -13,6 +13,9 @@ return {
 		-- Configure nvim-ufo
 		require("ufo").setup({
 			provider_selector = function(bufnr, filetype, buftype)
+				if filetype == "yaml" then
+					return { "indent" } -- Use only indent provider for YAML
+				end
 				return { "lsp", "indent" }
 			end,
 		})
