@@ -62,3 +62,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	command = "silent! !golines --ignore-generated -w %",
 	group = "GoFormat",
 })
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>ds",
+	"<cmd>lua vim.diagnostic.open_float()<CR>",
+	{ noremap = true, silent = true }
+)
