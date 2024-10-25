@@ -37,5 +37,20 @@ return {
 			end,
 			desc = "Delete All Buffers",
 		},
+		-- New mappings for switching buffers
+		{
+			"<leader>bN",
+			function()
+				vim.cmd("bnext")
+			end,
+			desc = "Next Buffer",
+		},
+		{
+			"<leader>bp",
+			function()
+				vim.cmd("bprev")
+			end,
+			desc = "Previous Buffer",
+		},
 	},
 }
