@@ -8,6 +8,8 @@ sudo apt install nodejs
 sudo apt install ripgrep
 sudo apt install unzip
 sudo apt install xclip
+#install npm if it is not installed
+# in ubuntu 24.04 sudo apt install -y python3-venv
 
 ####sudo apt install  luarocks lua5.1 ##only needed by rest-vim it is depricated
 #### also for this plugin we need in telescope.lua
