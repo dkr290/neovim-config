@@ -207,6 +207,24 @@ return {
 					},
 				})
 			end,
+			["gopls"] = function()
+				lspconfig["gopls"].setup({
+					capabilities = capabilities,
+					cmd = { "gopls" },
+					filetypes = { "go", "gomod", "gowork", "gotmpl" },
+					settings = {
+						gopls = {
+							completeUnimported = true, -- Key setting for unimported completions
+							usePlaceholders = true,
+							analyses = {
+								unusedparams = true,
+							},
+							staticcheck = true,
+							gofumpt = true,
+						},
+					},
+				})
+			end,
 		})
 	end,
 }
