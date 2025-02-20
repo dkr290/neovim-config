@@ -7,10 +7,10 @@ return {
 		})
 
 		-- Global Toggle Variable
-		vim.g.illuminate_enabled = true
-
+		vim.g.illuminate_enabled = false
+		vim.cmd("IlluminatePause")
 		-- Toggle Function
-		vim.keymap.set("n", "<leader>m", function()
+		vim.keymap.set("n", "<leader>mm", function()
 			vim.g.illuminate_enabled = not vim.g.illuminate_enabled
 			if vim.g.illuminate_enabled then
 				vim.cmd("IlluminateResume") -- Enable highlighting
