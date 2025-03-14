@@ -39,6 +39,9 @@ return {
 				"templ",
 				"terraformls",
 				"yamlls",
+				"pyright",
+				"ruff",
+				"pylsp",
 			},
 		})
 		mason_tool_installer.setup({
@@ -55,6 +58,9 @@ return {
 				"gofumpt",
 				"golines",
 				"gomodifytags",
+				"ruff", -- Alternative Python linter
+				"black", -- Python formatter
+				"isort", -- Python import sorter
 			},
 		})
 	end,

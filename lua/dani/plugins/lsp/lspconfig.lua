@@ -225,6 +225,48 @@ return {
 					},
 				})
 			end,
+			["pyright"] = function()
+				lspconfig["pyright"].setup({
+					capabilities = capabilities,
+					filetypes = { "python" },
+					settings = {
+						python = {
+							analysis = {
+								autoSearchPaths = true,
+								useLibraryCodeForTypes = true,
+								diagnosticMode = "workspace", -- Better linting across the project
+								typeCheckingMode = "strict", -- Options: off, basic, strict
+							},
+						},
+					},
+				})
+			end,
+			["ruff"] = function()
+				lspconfig["ruff_lsp"].setup({
+					capabilities = capabilities,
+					filetypes = { "python" },
+					init_options = {
+						settings = {
+							-- Configure Ruff to match your style
+							args = { "--select", "E,W,F", "--ignore", "E501" }, -- Ignore long line warnings
+						},
+					},
+				})
+			end,
+			["pylsp"] = function()
+				lspconfig["pylsp"].setup({
+					capabilities = capabilities,
+					settings = {
+						pylsp = {
+							plugins = {
+								pycodestyle = { maxLineLength = 88 },
+								flake8 = { enabled = false },
+								mypy = { enabled = true },
+							},
+						},
+					},
+				})
+			end,
 		})
 	end,
 }
