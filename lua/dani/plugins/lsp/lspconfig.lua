@@ -242,7 +242,7 @@ return {
 				})
 			end,
 			["ruff"] = function()
-				lspconfig["ruff_lsp"].setup({
+				lspconfig["ruff"].setup({
 					capabilities = capabilities,
 					filetypes = { "python" },
 					init_options = {
