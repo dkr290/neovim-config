@@ -39,7 +39,6 @@ return {
 				"templ",
 				"terraformls",
 				"yamlls",
-				"pyright",
 				"ruff",
 				"pylsp",
 			},
