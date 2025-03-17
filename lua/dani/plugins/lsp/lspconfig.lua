@@ -15,6 +15,13 @@ return {
 
 		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		-- on_attach function for ruff (Python linter)
+		local ruff_on_attach = function(client, bufnr)
+			if client.name == "ruff" then
+				-- Disable hover in favor of Pyright
+				client.server_capabilities.hoverProvider = false
+			end
+		end
 
 		local keymap = vim.keymap -- for conciseness
 		vim.filetype.add({ extension = { templ = "templ" } })
@@ -225,21 +232,70 @@ return {
 					},
 				})
 			end,
-			["pylsp"] = function()
-				lspconfig["pylsp"].setup({
+			["ruff"] = function()
+				lspconfig.ruff.setup({
+					capabilities = capabilities,
+					on_attach = ruff_on_attach,
+					init_options = {
+						settings = {
+							format = { preview = true },
+							lint = {
+								enable = true,
+								preview = true,
+								select = { "E", "F", "N" },
+								extendSelect = {
+									"W",
+									"I",
+									"UP007",
+									"UP015",
+									"FAST001",
+									"FAST002",
+									"FAST003",
+									"RUF100",
+									"RUF101",
+								},
+								ignore = {},
+								extendIgnore = {},
+							},
+							codeAction = {
+								disableRuleComment = { enable = true },
+								fixViolation = { enable = true },
+							},
+							showSyntaxErrors = true,
+							organizeImports = true,
+							fixAll = true,
+							lineLength = 120,
+							exclude = {
+								".git",
+								".ipynb_checkpoints",
+								".mypy_cache",
+								".pyenv",
+								".pytest_cache",
+								".pytype",
+								".ruff_cache",
+								".venv",
+								".vscode",
+								"__pypackages__",
+								"_build",
+								"build",
+								"dist",
+								"site-packages",
+								"venv",
+							},
+						},
+					},
+				})
+			end,
+			-- Handler for basedpyright (Python language server).
+			["basedpyright"] = function()
+				lspconfig.basedpyright.setup({
 					capabilities = capabilities,
 					settings = {
-						pylsp = {
-							plugins = {
-								pyflakes = { enabled = false },
-								pycodestyle = { enabled = false },
-								autopep8 = { enabled = false },
-								yapf = { enabled = false },
-								mccabe = { enabled = false },
-								pylsp_mypy = { enabled = false },
-								pylsp_black = { enabled = false },
-								pylsp_isort = { enabled = false },
-							},
+						disableOrganizeImports = true,
+						basedpyright = { typeCheckingMode = "standard" },
+						analysis = {
+							autoSearchPaths = true,
+							useLibraryCodeForTypes = true,
 						},
 					},
 				})

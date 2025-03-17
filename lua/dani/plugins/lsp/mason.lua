@@ -40,7 +40,7 @@ return {
 				"terraformls",
 				"yamlls",
 				"ruff",
-				"pylsp",
+				"basedpyright",
 			},
 		})
 		mason_tool_installer.setup({
@@ -60,6 +60,7 @@ return {
 				"ruff", -- Alternative Python linter
 				"black", -- Python formatter
 				"isort", -- Python import sorter
+				"basedpyright",
 			},
 		})
 	end,
