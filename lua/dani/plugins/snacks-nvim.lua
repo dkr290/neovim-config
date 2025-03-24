@@ -20,7 +20,7 @@ return {
 		scratch = { enabled = true },
 		terminal = { enabled = true },
 		toggle = { enabled = true },
-		picker = { enabled = true },
+		picker = { enabled = true, hidden = true },
 		quickfile = { enabled = true },
 		scope = { enabled = true },
 		scroll = { enabled = false },
