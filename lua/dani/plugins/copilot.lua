@@ -2,7 +2,7 @@ return {
 	"github/copilot.vim",
 	-- disable copilot by default
 	lazy = true,
-	keys = { "<leader>ce" },
+	keys = { "<leader>cp" },
 	config = function()
 		vim.cmd("Copilot setup")
 		print("Copilot setup 🤖")
@@ -16,7 +16,7 @@ return {
 		end, {
 			desc = "Disable Copilot",
 		})
-		vim.keymap.set("n", "<leader>ce", function()
+		vim.keymap.set("n", "<leader>cp", function()
 			vim.cmd(":Copilot enable")
 			print("Copilot enabled 🤖")
 		end, {
