@@ -300,6 +300,16 @@ return {
 					},
 				})
 			end,
+
+			["typos_lsp"] = function()
+				lspconfig.typos_lsp.setup({
+					cmd_env = { RUST_LOG = "error" },
+					init_options = {
+						-- Defaults to error.
+						diagnosticSeverity = "Error",
+					},
+				})
+			end,
 		})
 	end,
 }

@@ -41,6 +41,7 @@ return {
 				"yamlls",
 				"ruff",
 				"basedpyright",
+				"typos_lsp",
 			},
 		})
 		mason_tool_installer.setup({
