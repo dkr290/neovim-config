@@ -15,7 +15,7 @@ sudo apt install luarocks
 #install npm if it is not installed
 # in ubuntu 24.04 sudo apt install -y python3-venv
 
-####sudo apt install  luarocks lua5.1 ##only needed by rest-vim it is depricated
+####sudo apt install  luarocks lua5.1 ##only needed by rest-vim it is deprecated
 #### also for this plugin we need in telescope.lua
 ######		telescope.load_extension("rest")
 
@@ -26,6 +26,10 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/la
 cd ~/.local/share/fonts && unzip Meslo.zip && rm *Windows* && rm Meslo.zip && fc-cache -fv
 sudo apt install unzip
 cd ~/.local/share/fonts && unzip Meslo.zip && rm *Windows* && rm Meslo.zip && fc-cache -fv
+
+##adding copilot
+git clone https://github.com/github/copilot.vim.git \
+  ~/.config/nvim/pack/github/start/copilot.vim
 
 ```
 
