@@ -23,7 +23,7 @@ opt.cursorline = true -- highlight the current cursor line
 -- appearance
 
 -- turn on termguicolors for nightfly colorscheme to work
--- (have to use iterm2 or any other true color terminal)
+-- (have to use item2 or any other true color terminal)
 opt.termguicolors = true
 opt.background = "dark" -- colorschemes that can be light or dark will be made dark
 opt.signcolumn = "yes" -- show sign column so that text doesn't shift
@@ -74,3 +74,32 @@ vim.g["loaded_ruby_provider"] = 0
 -- 	"<cmd>lua vim.diagnostic.open_float()<CR>",
 -- 	{ noremap = true, silent = true }
 -- )
+
+vim.diagnostic.config({
+	-- show virtual text (inline messages)
+	virtual_text = {
+		prefix = "●", -- could be "■", "▎" etc.
+		spacing = 4,
+	},
+
+	-- show signs in the sign column (gutter)
+	signs = true,
+
+	-- underline problematic code
+	underline = true,
+
+	-- sort diagnostics by severity (so errors appear before warnings, etc.)
+	severity_sort = true,
+
+	-- control updates while typing
+	update_in_insert = false,
+
+	-- configure floating window behavior when you call vim.diagnostic.open_float()
+})
+
+vim.o.termguicolors = true
+
+-- Yellow warning text and signs
+vim.api.nvim_set_hl(0, "DiagnosticWarning", { fg = "#FAB005", undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarning", { fg = "#FAB005" })
+vim.api.nvim_set_hl(0, "DiagnosticSignWarning", { fg = "#FAB005" })
