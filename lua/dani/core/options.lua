@@ -96,10 +96,3 @@ vim.diagnostic.config({
 
 	-- configure floating window behavior when you call vim.diagnostic.open_float()
 })
-
-vim.o.termguicolors = true
-
--- Yellow warning text and signs
-vim.api.nvim_set_hl(0, "DiagnosticWarning", { fg = "#FAB005", undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarning", { fg = "#FAB005" })
-vim.api.nvim_set_hl(0, "DiagnosticSignWarning", { fg = "#FAB005" })
