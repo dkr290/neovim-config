@@ -4,7 +4,13 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
+		{ "folke/lazydev.nvim", ft = "lua", opts = {
+			library = {
+				"LazyVim",
+			},
+		} },
+		"Bilal2453/luvit-meta", -- optional but recommended
+		"nvim-lua/plenary.nvim",
 	},
 	config = function()
 		-- import lspconfig plugin
@@ -62,10 +68,14 @@ return {
 				keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
 				opts.desc = "Go to previous diagnostic"
-				keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+				keymap.set("n", "[d", function()
+					vim.diagnostic.jump({ count = -1, float = true })
+				end, opts) -- jump to previous diagnostic in buffer
 
 				opts.desc = "Go to next diagnostic"
-				keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+				keymap.set("n", "]d", function()
+					vim.diagnostic.jump({ count = 1, float = true })
+				end, opts) -- jump to next diagnostic in buffer
 
 				opts.desc = "Show documentation for what is under cursor"
 				keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -87,6 +97,8 @@ return {
 		end
 
 		mason_lspconfig.setup({
+			ensure_installed = {},
+			automatic_enable = true,
 			-- default handler for installed servers
 			handlers = {
 				function(server_name)

@@ -1,11 +1,10 @@
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason.nvim",
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
-		-- import mason
 		local mason = require("mason")
 
 		-- import mason-lspconfig
@@ -22,7 +21,6 @@ return {
 				},
 			},
 		})
-
 		mason_lspconfig.setup({
 			-- list of servers for mason to install
 			ensure_installed = {
@@ -43,6 +41,7 @@ return {
 				"basedpyright",
 				"typos_lsp",
 			},
+			automatic_enable = true,
 		})
 		mason_tool_installer.setup({
 			ensure_installed = {
@@ -63,6 +62,7 @@ return {
 				"isort", -- Python import sorter
 				"basedpyright",
 			},
+			automatic_enable = true,
 		})
 	end,
 }
