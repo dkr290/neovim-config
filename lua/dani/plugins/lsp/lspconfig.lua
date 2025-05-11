@@ -91,7 +91,7 @@ return {
 		end
 
 		mason_lspconfig.setup({
-			ensure_installed = true,
+			ensure_installed = {},
 			automatic_enable = true,
 			-- default handler for installed servers
 			handlers = {
@@ -351,17 +351,6 @@ return {
 						},
 					})
 					vim.lsp.enable("basedpyright")
-				end,
-
-				["typos_lsp"] = function()
-					vim.lsp.config("typos_lsp", {
-						cmd_env = { RUST_LOG = "warning" },
-						init_options = {
-							-- Defaults to error.
-							diagnosticSeverity = "Warning",
-						},
-					})
-					vim.lsp.enable("typos_lsp")
 				end,
 			},
 		})

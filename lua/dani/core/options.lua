@@ -77,7 +77,12 @@ vim.g["loaded_ruby_provider"] = 0
 
 vim.diagnostic.config({
 	virtual_lines = { current_line = true },
-
+	text = { -- Gutter text per-severity
+		[vim.diagnostic.severity.ERROR] = "",
+		[vim.diagnostic.severity.WARN] = "",
+		[vim.diagnostic.severity.INFO] = "",
+		[vim.diagnostic.severity.HINT] = "",
+	},
 	-- show signs in the sign column (gutter)
 	signs = true,
 

@@ -33,7 +33,6 @@ return {
 				"yamlls",
 				"ruff",
 				"basedpyright",
-				"typos_lsp",
 			},
 			automatic_enable = true,
 		})
