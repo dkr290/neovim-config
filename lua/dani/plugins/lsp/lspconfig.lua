@@ -4,11 +4,7 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/lazydev.nvim", ft = "lua", opts = {
-			library = {
-				"LazyVim",
-			},
-		} },
+		{ "folke/lazydev.nvim", opts = {} },
 		"Bilal2453/luvit-meta", -- optional but recommended
 		"nvim-lua/plenary.nvim",
 	},
@@ -239,6 +235,13 @@ return {
 							gopls = {
 								completeUnimported = true, -- Key setting for unimported completions
 								usePlaceholders = true,
+								staticcheck = true,
+								gofumpt = true,
+								directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+								semanticTokens = true,
+								completionUsePlaceholders = true,
+								completeFunctionCalls = true,
+
 								codelenses = {
 									gc_details = false,
 									generate = true,
@@ -264,10 +267,6 @@ return {
 									unusedwrite = true,
 									useany = true,
 								},
-								staticcheck = true,
-								gofumpt = true,
-								directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-								semanticTokens = true,
 							},
 						},
 					})
