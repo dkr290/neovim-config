@@ -76,11 +76,6 @@ vim.g["loaded_ruby_provider"] = 0
 -- )
 
 vim.diagnostic.config({
-	-- show virtual text (inline messages)
-	virtual_text = {
-		prefix = "●", -- could be "■", "▎" etc.
-		spacing = 4,
-	},
 	virtual_lines = { current_line = true },
 
 	-- show signs in the sign column (gutter)
