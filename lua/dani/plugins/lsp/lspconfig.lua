@@ -7,7 +7,6 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/lazydev.nvim", opts = {} },
 		"Bilal2453/luvit-meta", -- optional but recommended
-		"nvim-lua/plenary.nvim",
 	},
 	config = function()
 		-- import lspconfig plugin
