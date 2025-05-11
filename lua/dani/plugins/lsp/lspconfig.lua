@@ -18,7 +18,6 @@ return {
 
 		-- import mason_lspconfig plugin
 		local mason_lspconfig = require("mason-lspconfig")
-
 		-- on_attach function for ruff (Python linter)
 		local ruff_on_attach = function(client, bufnr)
 			if client.name == "ruff" then
@@ -26,6 +25,7 @@ return {
 				client.server_capabilities.hoverProvider = false
 			end
 		end
+		-- Set up LSP capabilities
 
 		local keymap = vim.keymap -- for conciseness
 		vim.filetype.add({ extension = { templ = "templ" } })
@@ -229,6 +229,8 @@ return {
 				["gopls"] = function()
 					lspconfig.gopls.setup({
 						capabilities = capabilities,
+						cmd = { "gopls" },
+						filetypes = { "go", "gomod", "gowork", "gotmpl" },
 						settings = {
 							gopls = {
 								gofumpt = true,
