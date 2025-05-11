@@ -1,6 +1,7 @@
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
+	opts = { inlay_hints = { enabled = true } },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
@@ -15,8 +16,6 @@ return {
 		-- import mason_lspconfig plugin
 		local mason_lspconfig = require("mason-lspconfig")
 
-		-- import cmp-nvim-lsp plugin
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		-- on_attach function for ruff (Python linter)
 		local ruff_on_attach = function(client, bufnr)
 			if client.name == "ruff" then
@@ -82,7 +81,7 @@ return {
 		})
 
 		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
