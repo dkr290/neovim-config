@@ -98,13 +98,16 @@ return {
 			-- default handler for installed servers
 			handlers = {
 				function(server_name)
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-					})
+					local opts = { capabilities = capabilities }
+					if server_name == "ruff" then
+						opts.on_attach = ruff_on_attach
+					end
+					vim.lsp.config(server_name, opts)
+					vim.lsp.enable(server_name)
 				end,
 				["emmet_ls"] = function()
 					-- configure emmet language server
-					lspconfig["emmet_ls"].setup({
+					local opts = {
 						capabilities = capabilities,
 						filetypes = {
 							"html",
@@ -116,11 +119,13 @@ return {
 							"less",
 							"svelte",
 						},
-					})
+					}
+					vim.lsp.config("emmet_ls", opts)
+					vim.lsp.enable("emmet_ls")
 				end,
 				["lua_ls"] = function()
 					-- configure lua server (with special settings)
-					lspconfig["lua_ls"].setup({
+					local opts = {
 						capabilities = capabilities,
 						settings = {
 							Lua = {
@@ -136,26 +141,30 @@ return {
 								},
 							},
 						},
-					})
+					}
+					vim.lsp.config("lua_ls", opts)
+					vim.lsp.enable("lua_ls")
 				end,
 				["html"] = function()
 					-- configure lua server (with special settings)
-					lspconfig["html"].setup({
+					vim.lsp.config("html", {
 						capabilities = capabilities,
 						filetypes = { "html", "templ" },
 					})
+					vim.lsp.enable("html")
 				end,
 				["templ"] = function()
-					lspconfig["templ"].setup({
+					vim.lsp.config("templ", {
 						capabilities = capabilities,
 						cmd = { "templ", "lsp" },
 						filetypes = { "templ" },
 						root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
 					})
+					vim.lsp.enable("templ")
 				end,
 				["tailwindcss"] = function()
 					-- configure lua server (with special settings)
-					lspconfig["tailwindcss"].setup({
+					vim.lsp.config("tailwindcss", {
 						capabilities = capabilities,
 						filetypes = { "templ", "astro", "javascript", "typescript", "react" },
 						settings = {
@@ -166,10 +175,11 @@ return {
 							},
 						},
 					})
+					vim.lsp.enable("tailwindcss")
 				end,
 
 				["helm_ls"] = function()
-					lspconfig["helm_ls"].setup({
+					vim.lsp.config("helm_ls", {
 						capabilities = capabilities,
 						settings = {
 							["helm-ls"] = {
@@ -198,9 +208,10 @@ return {
 							},
 						},
 					})
+					vim.lsp.enable("helm_ls")
 				end,
 				["yamlls"] = function()
-					lspconfig["yamlls"].setup({
+					vim.lsp.config("yamlls", {
 						capabilities = capabilities,
 						settings = {
 							redhat = { telemetry = { enabled = false } },
@@ -225,9 +236,10 @@ return {
 							},
 						},
 					})
+					vim.lsp.enable("yamlls")
 				end,
 				["gopls"] = function()
-					lspconfig["gopls"].setup({
+					vim.lsp.config("gopls", {
 						capabilities = capabilities,
 						cmd = { "gopls" },
 						filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -270,9 +282,10 @@ return {
 							},
 						},
 					})
+					vim.lsp.enable("gopls")
 				end,
 				["ruff"] = function()
-					lspconfig.ruff.setup({
+					vim.lsp.config("ruff", {
 						capabilities = capabilities,
 						on_attach = ruff_on_attach,
 						init_options = {
@@ -324,10 +337,11 @@ return {
 							},
 						},
 					})
+					vim.lsp.enable("ruff")
 				end,
 				-- Handler for basedpyright (Python language server).
 				["basedpyright"] = function()
-					lspconfig.basedpyright.setup({
+					vim.lsp.config("basedpyright", {
 						capabilities = capabilities,
 						settings = {
 							disableOrganizeImports = true,
@@ -338,16 +352,18 @@ return {
 							},
 						},
 					})
+					vim.lsp.enable("basedpyright")
 				end,
 
 				["typos_lsp"] = function()
-					lspconfig.typos_lsp.setup({
+					vim.lsp.config("typos_lsp", {
 						cmd_env = { RUST_LOG = "warning" },
 						init_options = {
 							-- Defaults to error.
 							diagnosticSeverity = "Warning",
 						},
 					})
+					vim.lsp.enable("typos_lsp")
 				end,
 			},
 		})
