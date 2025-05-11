@@ -4,6 +4,8 @@ return {
 	opts = { inlay_hints = { enabled = true } },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
+		"mason-org/mason-lspconfig.nvim",
+
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/lazydev.nvim", opts = {} },
 		"Bilal2453/luvit-meta", -- optional but recommended
@@ -11,6 +13,8 @@ return {
 	config = function()
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
+		-- used to enable autocompletion (assign to every lsp server config)
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		-- import mason_lspconfig plugin
 		local mason_lspconfig = require("mason-lspconfig")
@@ -79,9 +83,6 @@ return {
 			end,
 		})
 
-		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -96,16 +97,14 @@ return {
 			-- default handler for installed servers
 			handlers = {
 				function(server_name)
-					local opts = { capabilities = capabilities }
-					if server_name == "ruff" then
-						opts.on_attach = ruff_on_attach
-					end
-					vim.lsp.config(server_name, opts)
-					vim.lsp.enable(server_name)
+					lspconfig[server_name].setup({
+						capabilities = capabilities,
+						-- you can add per-server on_attach or settings here if needed
+					})
 				end,
 				["emmet_ls"] = function()
 					-- configure emmet language server
-					local opts = {
+					lspconfig.emmet_ls.setup({
 						capabilities = capabilities,
 						filetypes = {
 							"html",
@@ -117,13 +116,11 @@ return {
 							"less",
 							"svelte",
 						},
-					}
-					vim.lsp.config("emmet_ls", opts)
-					vim.lsp.enable("emmet_ls")
+					})
 				end,
 				["lua_ls"] = function()
 					-- configure lua server (with special settings)
-					local opts = {
+					lspconfig.lua_ls.setup({
 						capabilities = capabilities,
 						settings = {
 							Lua = {
@@ -139,30 +136,26 @@ return {
 								},
 							},
 						},
-					}
-					vim.lsp.config("lua_ls", opts)
-					vim.lsp.enable("lua_ls")
+					})
 				end,
 				["html"] = function()
 					-- configure lua server (with special settings)
-					vim.lsp.config("html", {
+					lspconfig.html.setup({
 						capabilities = capabilities,
 						filetypes = { "html", "templ" },
 					})
-					vim.lsp.enable("html")
 				end,
 				["templ"] = function()
-					vim.lsp.config("templ", {
+					lspconfig.templ.setup({
 						capabilities = capabilities,
 						cmd = { "templ", "lsp" },
 						filetypes = { "templ" },
 						root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
 					})
-					vim.lsp.enable("templ")
 				end,
 				["tailwindcss"] = function()
 					-- configure lua server (with special settings)
-					vim.lsp.config("tailwindcss", {
+					lspconfig.tailwindcss.setup({
 						capabilities = capabilities,
 						filetypes = { "templ", "astro", "javascript", "typescript", "react" },
 						settings = {
@@ -173,11 +166,10 @@ return {
 							},
 						},
 					})
-					vim.lsp.enable("tailwindcss")
 				end,
 
 				["helm_ls"] = function()
-					vim.lsp.config("helm_ls", {
+					lspconfig.helm_ls.setup({
 						capabilities = capabilities,
 						settings = {
 							["helm-ls"] = {
@@ -206,10 +198,9 @@ return {
 							},
 						},
 					})
-					vim.lsp.enable("helm_ls")
 				end,
 				["yamlls"] = function()
-					vim.lsp.config("yamlls", {
+					lspconfig.yamlls.setup({
 						capabilities = capabilities,
 						settings = {
 							redhat = { telemetry = { enabled = false } },
@@ -234,24 +225,13 @@ return {
 							},
 						},
 					})
-					vim.lsp.enable("yamlls")
 				end,
 				["gopls"] = function()
-					vim.lsp.config("gopls", {
+					lspconfig.gopls.setup({
 						capabilities = capabilities,
-						cmd = { "gopls" },
-						filetypes = { "go", "gomod", "gowork", "gotmpl" },
 						settings = {
 							gopls = {
-								completeUnimported = true, -- Key setting for unimported completions
-								usePlaceholders = true,
-								staticcheck = true,
 								gofumpt = true,
-								directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-								semanticTokens = true,
-								completionUsePlaceholders = true,
-								completeFunctionCalls = true,
-
 								codelenses = {
 									gc_details = false,
 									generate = true,
@@ -277,13 +257,17 @@ return {
 									unusedwrite = true,
 									useany = true,
 								},
+								usePlaceholders = true,
+								completeUnimported = true,
+								staticcheck = true,
+								directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+								semanticTokens = true,
 							},
 						},
 					})
-					vim.lsp.enable("gopls")
 				end,
 				["ruff"] = function()
-					vim.lsp.config("ruff", {
+					lspconfig.ruff.setup({
 						capabilities = capabilities,
 						on_attach = ruff_on_attach,
 						init_options = {
@@ -335,11 +319,10 @@ return {
 							},
 						},
 					})
-					vim.lsp.enable("ruff")
 				end,
 				-- Handler for basedpyright (Python language server).
 				["basedpyright"] = function()
-					vim.lsp.config("basedpyright", {
+					lspconfig.basedpyright.setup({
 						capabilities = capabilities,
 						settings = {
 							disableOrganizeImports = true,
@@ -350,7 +333,6 @@ return {
 							},
 						},
 					})
-					vim.lsp.enable("basedpyright")
 				end,
 			},
 		})
