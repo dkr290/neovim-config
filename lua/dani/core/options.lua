@@ -81,6 +81,7 @@ vim.diagnostic.config({
 		prefix = "●", -- could be "■", "▎" etc.
 		spacing = 4,
 	},
+	virtual_lines = { current_line = true },
 
 	-- show signs in the sign column (gutter)
 	signs = true,
