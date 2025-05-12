@@ -3,18 +3,17 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	opts = { inlay_hints = { enabled = true } },
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
+		"saghen/blink.cmp",
 		"mason-org/mason-lspconfig.nvim",
-
-		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/lazydev.nvim", opts = {} },
-		"Bilal2453/luvit-meta", -- optional but recommended
 	},
 	config = function()
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
+		local blink_cmp = require("blink.cmp")
 		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		--	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = blink_cmp.get_lsp_capabilities()
 
 		-- import mason_lspconfig plugin
 		local mason_lspconfig = require("mason-lspconfig")
