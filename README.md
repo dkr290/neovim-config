@@ -69,3 +69,12 @@ nvim
   5. in visual move v +l couple of times + s it will replace selected
 - surround plugin
   ( y + s) to surround the text + motion (i + w) + ""
+
+### some command for health check
+
+```
+:ConformInfo
+:LspInfo
+:checkhealth
+:checkhealth vim.lsp
+```

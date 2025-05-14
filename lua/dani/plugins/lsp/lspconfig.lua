@@ -17,12 +17,6 @@ return {
 		-- import mason_lspconfig plugin
 		local mason_lspconfig = require("mason-lspconfig")
 		-- on_attach function for ruff (Python linter)
-		local ruff_on_attach = function(client, bufnr)
-			if client.name == "ruff" then
-				-- Disable hover in favor of Pyright
-				client.server_capabilities.hoverProvider = false
-			end
-		end
 		-- Set up LSP capabilities
 
 		local keymap = vim.keymap -- for conciseness
@@ -88,252 +82,226 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
-
 		mason_lspconfig.setup({
-			ensure_installed = {},
+			ensure_installed = {}, -- Servers will be configured individually below
 			automatic_enable = true,
-			-- default handler for installed servers
-			handlers = {
-				function(server_name)
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-						-- you can add per-server on_attach or settings here if needed
-					})
-				end,
-				["emmet_ls"] = function()
-					-- configure emmet language server
-					lspconfig.emmet_ls.setup({
-						capabilities = capabilities,
-						filetypes = {
-							"html",
-							"typescriptreact",
-							"javascriptreact",
-							"css",
-							"sass",
-							"scss",
-							"less",
-							"svelte",
-						},
-					})
-				end,
-				["lua_ls"] = function()
-					-- configure lua server (with special settings)
-					lspconfig.lua_ls.setup({
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								-- make the language server recognize "vim" global
-								diagnostics = {
-									globals = { "vim" },
-								},
-								completion = {
-									callSnippet = "Replace",
-								},
-								hint = {
-									enable = true,
-								},
-							},
-						},
-					})
-				end,
-				["html"] = function()
-					-- configure lua server (with special settings)
-					lspconfig.html.setup({
-						capabilities = capabilities,
-						filetypes = { "html", "templ" },
-					})
-				end,
-				["templ"] = function()
-					lspconfig.templ.setup({
-						capabilities = capabilities,
-						cmd = { "templ", "lsp" },
-						filetypes = { "templ" },
-						root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
-					})
-				end,
-				["tailwindcss"] = function()
-					-- configure lua server (with special settings)
-					lspconfig.tailwindcss.setup({
-						capabilities = capabilities,
-						filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-						settings = {
-							tailwindCSS = {
-								includeLanguages = {
-									templ = "html",
-								},
-							},
-						},
-					})
-				end,
+		})
+		vim.lsp.config("emmet_ls", {
+			-- configure emmet language server
+			capabilities = capabilities,
+			filetypes = {
+				"html",
+				"typescriptreact",
+				"javascriptreact",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"svelte",
+			},
+		})
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					-- make the language server recognize "vim" global
+					diagnostics = {
+						globals = { "vim" },
+					},
+					completion = {
+						callSnippet = "Replace",
+					},
+					hint = {
+						enable = true,
+					},
+				},
+			},
+		})
 
-				["helm_ls"] = function()
-					lspconfig.helm_ls.setup({
-						capabilities = capabilities,
-						settings = {
-							["helm-ls"] = {
-								logLevel = "info",
-								valuesFiles = {
-									mainValuesFile = "values.yaml",
-									lintOverlayValuesFile = "values.lint.yaml",
-									additionalValuesFilesGlobPattern = "values*.yaml",
-								},
-								yamlls = {
-									enabled = true,
-									diagnosticsLimit = 50,
-									showDiagnosticsDirectly = false,
-									path = "yaml-language-server",
-									config = {
-										schemas = {
-											kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
-											["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-*.{yml,yaml}",
-											["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
-											["https://json.schemastore.org/chart.json"] = "Chart.yaml",
-										},
-										completion = true,
-										hover = true,
-									},
-								},
+		vim.lsp.config("html", {
+			capabilities = capabilities,
+			filetypes = { "html", "templ" },
+		})
+
+		vim.lsp.config("templ", {
+			capabilities = capabilities,
+			cmd = { "templ", "lsp" },
+			filetypes = { "templ" },
+			root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+		})
+
+		vim.lsp.config("tailwindcss", {
+			capabilities = capabilities,
+			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+			settings = {
+				tailwindCSS = {
+					includeLanguages = {
+						templ = "html",
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("helm_ls", {
+			capabilities = capabilities,
+			settings = {
+				["helm-ls"] = {
+					logLevel = "info",
+					valuesFiles = {
+						mainValuesFile = "values.yaml",
+						lintOverlayValuesFile = "values.lint.yaml",
+						additionalValuesFilesGlobPattern = "values*.yaml",
+					},
+					yamlls = {
+						enabled = true,
+						diagnosticsLimit = 50,
+						showDiagnosticsDirectly = false,
+						path = "yaml-language-server",
+						config = {
+							schemas = {
+								kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
+								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+								["https://json.schemastore.org/chart.json"] = "Chart.yaml",
 							},
+							completion = true,
+							hover = true,
 						},
-					})
-				end,
-				["yamlls"] = function()
-					lspconfig.yamlls.setup({
-						capabilities = capabilities,
-						settings = {
-							redhat = { telemetry = { enabled = false } },
-							yaml = {
-								validate = true,
-								-- disable the schema store
-								schemaStore = {
-									enable = false,
-									url = "",
-								},
-								-- manually select schemas
-								schemas = {
-									kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
-									["https://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
-									["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-*.{yml,yaml}",
-									["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
-									["https://json.schemastore.org/chart.json"] = "Chart.yaml",
-									["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.{yml,yaml}",
-									["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json"] = "sealed*.{yml,yaml}",
-									["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/keda.sh/scaledobject_v1alpha1.json"] = "scaled*.{yml,yaml}",
-								},
-							},
+					},
+				},
+			},
+		})
+		vim.lsp.config("yamlls", {
+			capabilities = capabilities,
+			settings = {
+				redhat = { telemetry = { enabled = false } },
+				yaml = {
+					validate = true,
+					schemaStore = {
+						enable = false,
+						url = "",
+					},
+					schemas = {
+						kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
+						["https://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
+						["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+						["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+						["https://json.schemastore.org/chart.json"] = "Chart.yaml",
+						["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.{yml,yaml}",
+						["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json"] = "sealed*.{yml,yaml}",
+						["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/keda.sh/scaledobject_v1alpha1.json"] = "scaled*.{yml,yaml}",
+					},
+				},
+			},
+		})
+		vim.lsp.config("gopls", {
+			capabilities = capabilities,
+			cmd = { "gopls" },
+			filetypes = { "go", "gomod", "gowork", "gotmpl" },
+			settings = {
+				gopls = {
+					gofumpt = true,
+					codelenses = {
+						gc_details = false,
+						generate = true,
+						regenerate_cgo = true,
+						run_govulncheck = true,
+						test = true,
+						tidy = true,
+						upgrade_dependency = true,
+						vendor = true,
+					},
+					hints = {
+						assignVariableTypes = true,
+						compositeLiteralFields = true,
+						compositeLiteralTypes = true,
+						constantValues = true,
+						functionTypeParameters = true,
+						parameterNames = true,
+						rangeVariableTypes = true,
+					},
+					analyses = {
+						nilness = true,
+						unusedparams = true,
+						unusedwrite = true,
+						useany = true,
+					},
+					usePlaceholders = true,
+					completeUnimported = true,
+					staticcheck = true,
+					directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+					semanticTokens = true,
+				},
+			},
+		})
+
+		vim.lsp.config("ruff", {
+			capabilities = capabilities,
+			on_attach = function(client, bufnr)
+				if client.name == "ruff" then
+					client.server_capabilities.hoverProvider = false
+				end
+				-- You can add ruff-specific keymaps here if needed
+			end,
+			init_options = {
+				settings = {
+					format = { preview = true },
+					lint = {
+						enable = true,
+						preview = true,
+						select = { "E", "F", "N" },
+						extendSelect = {
+							"W",
+							"I",
+							"UP007",
+							"UP015",
+							"FAST001",
+							"FAST002",
+							"FAST003",
+							"RUF100",
+							"RUF101",
 						},
-					})
-				end,
-				["gopls"] = function()
-					lspconfig.gopls.setup({
-						capabilities = capabilities,
-						cmd = { "gopls" },
-						filetypes = { "go", "gomod", "gowork", "gotmpl" },
-						settings = {
-							gopls = {
-								gofumpt = true,
-								codelenses = {
-									gc_details = false,
-									generate = true,
-									regenerate_cgo = true,
-									run_govulncheck = true,
-									test = true,
-									tidy = true,
-									upgrade_dependency = true,
-									vendor = true,
-								},
-								hints = {
-									assignVariableTypes = true,
-									compositeLiteralFields = true,
-									compositeLiteralTypes = true,
-									constantValues = true,
-									functionTypeParameters = true,
-									parameterNames = true,
-									rangeVariableTypes = true,
-								},
-								analyses = {
-									nilness = true,
-									unusedparams = true,
-									unusedwrite = true,
-									useany = true,
-								},
-								usePlaceholders = true,
-								completeUnimported = true,
-								staticcheck = true,
-								directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-								semanticTokens = true,
-							},
-						},
-					})
-				end,
-				["ruff"] = function()
-					lspconfig.ruff.setup({
-						capabilities = capabilities,
-						on_attach = ruff_on_attach,
-						init_options = {
-							settings = {
-								format = { preview = true },
-								lint = {
-									enable = true,
-									preview = true,
-									select = { "E", "F", "N" },
-									extendSelect = {
-										"W",
-										"I",
-										"UP007",
-										"UP015",
-										"FAST001",
-										"FAST002",
-										"FAST003",
-										"RUF100",
-										"RUF101",
-									},
-									ignore = {},
-									extendIgnore = {},
-								},
-								codeAction = {
-									disableRuleComment = { enable = true },
-									fixViolation = { enable = true },
-								},
-								showSyntaxErrors = true,
-								organizeImports = true,
-								fixAll = true,
-								lineLength = 120,
-								exclude = {
-									".git",
-									".ipynb_checkpoints",
-									".mypy_cache",
-									".pyenv",
-									".pytest_cache",
-									".pytype",
-									".ruff_cache",
-									".venv",
-									".vscode",
-									"__pypackages__",
-									"_build",
-									"build",
-									"dist",
-									"site-packages",
-									"venv",
-								},
-							},
-						},
-					})
-				end,
-				-- Handler for basedpyright (Python language server).
-				["basedpyright"] = function()
-					lspconfig.basedpyright.setup({
-						capabilities = capabilities,
-						settings = {
-							disableOrganizeImports = true,
-							basedpyright = { typeCheckingMode = "standard" },
-							analysis = {
-								autoSearchPaths = true,
-								useLibraryCodeForTypes = true,
-							},
-						},
-					})
-				end,
+						ignore = {},
+						extendIgnore = {},
+					},
+					codeAction = {
+						disableRuleComment = { enable = true },
+						fixViolation = { enable = true },
+					},
+					showSyntaxErrors = true,
+					organizeImports = true,
+					fixAll = true,
+					lineLength = 120,
+					exclude = {
+						".git",
+						".ipynb_checkpoints",
+						".mypy_cache",
+						".pyenv",
+						".pytest_cache",
+						".pytype",
+						".ruff_cache",
+						".venv",
+						".vscode",
+						"__pypackages__",
+						"_build",
+						"build",
+						"dist",
+						"site-packages",
+						"venv",
+					},
+				},
+			},
+		})
+		-- Handler for basedpyright (Python language server).
+		vim.lsp.config("basedpyright", {
+			capabilities = capabilities,
+			settings = {
+				disableOrganizeImports = true,
+				basedpyright = { typeCheckingMode = "standard" },
+				analysis = {
+					autoSearchPaths = true,
+					useLibraryCodeForTypes = true,
+				},
 			},
 		})
 	end,
