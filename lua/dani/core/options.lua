@@ -76,15 +76,13 @@ vim.g["loaded_ruby_provider"] = 0
 -- )
 
 vim.diagnostic.config({
-	virtual_lines = { current_line = true },
-	text = { -- Gutter text per-severity
-		[vim.diagnostic.severity.ERROR] = "",
-		[vim.diagnostic.severity.WARN] = "",
-		[vim.diagnostic.severity.INFO] = "",
-		[vim.diagnostic.severity.HINT] = "",
-	},
+	-- virtual_text = {
+	-- 	source = "if_many",
+	-- 	spacing = 4,
+	-- 	prefix = "●",
+	-- },
+	virtual_lines = true,
 	-- show signs in the sign column (gutter)
-	signs = true,
 
 	-- underline problematic code
 	underline = true,
@@ -94,6 +92,23 @@ vim.diagnostic.config({
 
 	-- control updates while typing
 	update_in_insert = false,
+	float = {
+		focusable = false,
+		style = "minimal",
+		border = "rounded",
+		source = "if_many",
+		header = "",
+		prefix = "",
+	},
 
 	-- configure floating window behavior when you call vim.diagnostic.open_float()
 })
+local signs = {
+	Error = "",
+	Warn = "",
+	Info = "",
+	Hint = "",
+}
+for type, icon in pairs(signs) do
+	vim.fn.sign_define("DiagnosticSign" .. type, { text = icon, texthl = "DiagnosticSign" .. type })
+end

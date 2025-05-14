@@ -88,15 +88,7 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-			callback = function(ev)
-				local bufnr = ev.buf
-				-- Enable native inlay hints
-				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) -- :contentReference[oaicite:2]{index=2}
-				-- ... (existing keymaps) ...
-			end,
-		})
+
 		mason_lspconfig.setup({
 			ensure_installed = {},
 			automatic_enable = true,
