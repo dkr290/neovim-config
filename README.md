@@ -77,4 +77,5 @@ nvim
 :LspInfo
 :checkhealth
 :checkhealth vim.lsp
+:messages
 ```
