@@ -160,8 +160,7 @@ return {
 						config = {
 							schemas = {
 								kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
-								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-*.{yml,yaml}",
-								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
+								["https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/argoproj.io/appproject_v1alpha1.json"] = "argocd-*.{yml,yaml}",
 								["https://json.schemastore.org/chart.json"] = "Chart.yaml",
 							},
 							completion = true,
