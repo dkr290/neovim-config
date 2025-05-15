@@ -79,3 +79,8 @@ nvim
 :checkhealth vim.lsp
 :messages
 ```
+
+### Info
+
+- good article to make the new lsp that is already included in neovim
+  https://gpanders.com/blog/whats-new-in-neovim-0-11/
