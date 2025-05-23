@@ -13,6 +13,11 @@ sudo apt install fd-find
 sudo apt install magic
 sudo apt install luarocks
 #install npm if it is not installed
+# better locally
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
+source ~/.bashrc
+nvm install node
+npm install -g mcp-hub@latest
 # in ubuntu 24.04 sudo apt install -y python3-venv
 
 ####sudo apt install  luarocks lua5.1 ##only needed by rest-vim it is deprecated

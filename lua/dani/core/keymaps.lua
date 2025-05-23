@@ -34,3 +34,30 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 -- Map leader + d to diff two files in a vertical split
 -- Diff file management with leader key
 keymap.set("n", "<Leader>dm", ":diffthis<CR>", { noremap = true, silent = true }) -- Open the vertical split
+
+------------------------------- CodeCompanion mappings -----------------------------------
+keymap.set(
+	"n",
+	"<leader>cA",
+	"<cmd>CodeCompanionActions<CR>",
+	{ desc = "Trigger Code Companion Actions", silent = true }
+)
+keymap.set(
+	"v",
+	"<leader>cA",
+	"<cmd>CodeCompanionActions<CR>",
+	{ desc = "Trigger Code Companion Actions in Visual Mode", silent = true }
+)
+keymap.set(
+	"n",
+	"<leader>cc",
+	"<cmd>CodeCompanionChat Toggle<CR>",
+	{ desc = "Toggle Code Companion Chat", silent = true }
+)
+keymap.set(
+	"v",
+	"<leader>cc",
+	"<cmd>CodeCompanionChat Toggle<CR>",
+	{ desc = "Toggle Code Companion Chat in Visual Mode", silent = true }
+)
+keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<CR>", { desc = "Add to Code Companion Chat", silent = true })
