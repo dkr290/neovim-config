@@ -14,28 +14,56 @@ return {
 	},
 
 	config = function()
-		-- Function to select model dynamically
-		_G.select_model = function()
-			local models = {
-				"gemini-2.5-pro",
-				"gemini-2.0-flash",
-				"claude-sonnet-4-0",
-				"gpt-4o",
-				"gpt-4.1",
-				"deepseek-chat",
-				"deepseek-reasoner",
-			}
+		-- Define available providers and their models
+		local providers = {
+			copilot = { "gpt-4o", "gpt-4.1", "gemini-2.5-pro" },
+			deepseek = { "deepseek-chat", "deepseek-reasoner" },
+			gemini = { "gemini-2.0-flash" },
+		}
 
-			vim.ui.select(models, { prompt = "Select a model" }, function(choice)
-				if choice then
+		-- Function to select provider dynamically
+		_G.select_provider = function()
+			local provider_names = vim.tbl_keys(providers)
+			vim.ui.select(provider_names, { prompt = "Select a provider" }, function(provider_choice)
+				if provider_choice then
+					_G.selected_provider = provider_choice
+					_G.select_model(provider_choice)
+				end
+			end)
+		end
+
+		-- Function to select model dynamically based on provider
+		_G.select_model = function(provider_choice)
+			local models = providers[provider_choice]
+			vim.ui.select(models, { prompt = "Select a model" }, function(model_choice)
+				if model_choice then
+					_G.selected_model = model_choice
 					require("codecompanion").setup({
-						adapters = {
-							copilot = function()
-								return require("codecompanion.adapters").extend("copilot", {
-									schema = {
-										model = {
-											default = choice,
+						strategies = {
+							chat = {
+								adapter = _G.selected_provider,
+								slash_commands = {
+									["file"] = {
+										opts = {
+											provider = _G.selected_provider,
 										},
+									},
+									["buffer"] = {
+										opts = {
+											provider = _G.selected_provider,
+										},
+									},
+								},
+							},
+							inline = {
+								adapter = _G.selected_provider,
+							},
+						},
+						adapters = {
+							[_G.selected_provider] = function()
+								return require("codecompanion.adapters").extend(_G.selected_provider, {
+									schema = {
+										model = { default = _G.selected_model },
 									},
 								})
 							end,
@@ -44,8 +72,6 @@ return {
 				end
 			end)
 		end
-		-- Call select_model during setup
-
 		require("codecompanion").setup({
 			display = {
 				chat = {
@@ -75,26 +101,7 @@ return {
 					},
 				},
 			},
-			strategies = {
-				chat = {
-					adapter = "copilot",
-					slash_commands = {
-						["file"] = {
-							opts = {
-								provider = "snacks",
-							},
-						},
-						["buffer"] = {
-							opts = {
-								provider = "snacks",
-							},
-						},
-					},
-				},
-				inline = {
-					adapter = "copilot",
-				},
-			},
+
 			adapters = {
 				copilot = function()
 					return require("codecompanion.adapters").extend("copilot", {
