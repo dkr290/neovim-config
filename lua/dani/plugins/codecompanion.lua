@@ -108,11 +108,11 @@ return {
 				deepseek = function()
 					return require("codecompanion.adapters").extend("deepseek", {
 						env = {
-							api_key = os.getenv("DEEPSEEK_API_KEY"), -- Replace with your valid key
+							api_key = os.getenv("DEEPSEEK_API_KEY"),
 						},
 						schema = {
 							model = {
-								default = "deepseek-chat", -- You can change this to another model if needed
+								default = "deepseek-chat",
 							},
 						},
 					})
@@ -120,11 +120,11 @@ return {
 				gemini = function()
 					return require("codecompanion.adapters").extend("gemini", {
 						env = {
-							api_key = os.getenv("GEMINI_API_KEY"), -- Replace with your actual key
+							api_key = os.getenv("GEMINI_API_KEY"), -- from env
 						},
 						schema = {
 							model = {
-								default = "gemini-2.0-flash", -- You can switch this to another Gemini variant
+								default = "gemini-2.0-flash",
 							},
 						},
 					})
