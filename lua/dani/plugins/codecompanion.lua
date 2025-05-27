@@ -18,7 +18,7 @@ return {
 		local providers = {
 			copilot = { "gpt-4o", "gpt-4.1", "gemini-2.5-pro" },
 			deepseek = { "deepseek-chat", "deepseek-reasoner" },
-			gemini = { "gemini-2.0-flash" },
+			gemini = { "gemini-2.0-flash", "gemini-2.5-pro" },
 		}
 
 		-- Function to select provider dynamically
