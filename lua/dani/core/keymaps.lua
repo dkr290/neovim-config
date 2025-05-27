@@ -61,3 +61,6 @@ keymap.set(
 	{ desc = "Toggle Code Companion Chat in Visual Mode", silent = true }
 )
 keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<CR>", { desc = "Add to Code Companion Chat", silent = true })
+
+-- Keymap to trigger model selection
+vim.api.nvim_set_keymap("n", "<leader>pm", ":lua select_model()<CR>", { noremap = true, silent = true })

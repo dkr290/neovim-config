@@ -12,7 +12,40 @@ return {
 			config = true,
 		},
 	},
+
 	config = function()
+		-- Function to select model dynamically
+		_G.select_model = function()
+			local models = {
+				"gemini-2.5-pro",
+				"gemini-2.0-flash",
+				"claude-sonnet-4-0",
+				"gpt-4o",
+				"gpt-4.1",
+				"deepseek-chat",
+				"deepseek-reasoner",
+			}
+
+			vim.ui.select(models, { prompt = "Select a model" }, function(choice)
+				if choice then
+					require("codecompanion").setup({
+						adapters = {
+							copilot = function()
+								return require("codecompanion.adapters").extend("copilot", {
+									schema = {
+										model = {
+											default = choice,
+										},
+									},
+								})
+							end,
+						},
+					})
+				end
+			end)
+		end
+		-- Call select_model during setup
+
 		require("codecompanion").setup({
 			display = {
 				chat = {
@@ -68,6 +101,30 @@ return {
 						schema = {
 							model = {
 								default = "gemini-2.5-pro",
+							},
+						},
+					})
+				end,
+				deepseek = function()
+					return require("codecompanion.adapters").extend("deepseek", {
+						env = {
+							api_key = os.getenv("DEEPSEEK_API_KEY"), -- Replace with your valid key
+						},
+						schema = {
+							model = {
+								default = "deepseek-chat", -- You can change this to another model if needed
+							},
+						},
+					})
+				end,
+				gemini = function()
+					return require("codecompanion.adapters").extend("gemini", {
+						env = {
+							api_key = os.getenv("GEMINI_API_KEY"), -- Replace with your actual key
+						},
+						schema = {
+							model = {
+								default = "gemini-2.0-flash", -- You can switch this to another Gemini variant
 							},
 						},
 					})
