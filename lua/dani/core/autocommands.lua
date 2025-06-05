@@ -51,3 +51,36 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 	end,
 })
+
+vim.filetype.add({
+	extension = {
+		templ = "templ",
+	},
+})
+vim.filetype.add({
+	pattern = {
+		[".*%.dockerfile"] = "dockerfile",
+	},
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.http",
+	callback = function()
+		vim.cmd("set filetype=http")
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.templ",
+	command = "set filetype=templ",
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.dockerfile",
+	command = "set filetype=dockerfile",
+})
+
+vim.api.nvim_create_augroup("GoFormat", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.go",
+	command = "silent! !golines --ignore-generated -w %",
+	group = "GoFormat",
+})

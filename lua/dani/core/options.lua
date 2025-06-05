@@ -40,28 +40,7 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*.http",
-	callback = function()
-		vim.cmd("set filetype=http")
-	end,
-})
-vim.filetype.add({
-	extension = {
-		templ = "templ",
-	},
-})
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*.templ",
-	command = "set filetype=templ",
-})
 
-vim.api.nvim_create_augroup("GoFormat", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.go",
-	command = "silent! !golines --ignore-generated -w %",
-	group = "GoFormat",
-})
 -- disable some default providers
 vim.g["loaded_python_provider"] = 0
 vim.g["loaded_python3_provider"] = 0
