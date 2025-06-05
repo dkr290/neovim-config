@@ -6,11 +6,24 @@ return {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
-		"hrsh7th/cmp-vsnip",
-		"hrsh7th/vim-vsnip",
+		{
+			"L3MON4D3/LuaSnip",
+			-- follow latest release.
+			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+			-- install jsregexp (optional!).
+			build = "make install_jsregexp",
+		},
+		"saadparwaiz1/cmp_luasnip", -- for autocompletion
+		"rafamadriz/friendly-snippets", -- useful snippets
+		"onsails/lspkind.nvim", -- vs-code like pictograms
 	},
 	config = function()
 		local cmp = require("cmp")
+
+		local lspkind = require("lspkind")
+
+		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+		require("luasnip.loaders.from_vscode").lazy_load()
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		-- Ensure your LSP servers inherit cmp capabilities
 		local lsp_servers = require("dani.plugins.helpers.lsp").get_servers_from_config_dir()
@@ -19,9 +32,12 @@ return {
 		end
 
 		cmp.setup({
+			completion = {
+				completeopt = "menu,menuone,preview,noselect",
+			},
 			snippet = {
 				expand = function(args)
-					vim.fn["vsnip#anonymous"](args.body) -- For vsnip users
+					require("luasnip").lsp_expand(args.body)
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
@@ -33,10 +49,16 @@ return {
 			}),
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "vsnip" },
-			}, {
-				{ name = "buffer" },
+				{ name = "luasnip" }, -- snippets
+				{ name = "buffer" }, -- text within current buffer
+				{ name = "path" }, -- file system paths
 			}),
+			formatting = {
+				format = lspkind.cmp_format({
+					maxwidth = 50,
+					ellipsis_char = "...",
+				}),
+			},
 		})
 		-- Cmdline setup
 		cmp.setup.cmdline({ "/", "?" }, {
