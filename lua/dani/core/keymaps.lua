@@ -64,3 +64,29 @@ keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<CR>", { desc = "Add to Code Co
 
 -- Keymap to trigger model and provider selection
 vim.api.nvim_set_keymap("n", "<leader>pm", ":lua _G.select_provider()<CR>", { noremap = true, silent = true })
+
+------------------------------ LSP Debug mappings -----------------------------------
+keymap.set("n", "<leader>lS", function()
+	local clients = vim.lsp.get_clients({ bufnr = 0 })
+	if #clients == 0 then
+		print("No LSP clients attached to current buffer")
+		return
+	end
+
+	for _, client in ipairs(clients) do
+		print("LSP Client:", client.name)
+		if client.config.settings then
+			if client.config.settings.yaml then
+				print("YAML schemas:", vim.inspect(client.config.settings.yaml.schemas or {}))
+			end
+			if client.config.settings.json then
+				print("JSON schemas:", vim.inspect(client.config.settings.json.schemas or {}))
+			end
+		end
+	end
+end, { desc = "Show LSP schemas for current buffer" })
+
+------------------------------ Schema Selector mappings -----------------------------------
+keymap.set("n", "<leader>ys", function()
+	require("dani.plugins.helpers.schema").select_crd_schema()
+end, { desc = "Select YAML CRD Schema" })
