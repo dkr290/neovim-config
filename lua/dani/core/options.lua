@@ -60,7 +60,8 @@ vim.diagnostic.config({
 	-- 	spacing = 4,
 	-- 	prefix = "●",
 	-- },
-	virtual_lines = true,
+	virtual_text = true,
+	-- virtual_lines = true,
 	-- show signs in the sign column (gutter)
 
 	-- underline problematic code
