@@ -16,7 +16,21 @@ return {
 	config = function()
 		-- Define available providers and their models
 		local providers = {
-			copilot = { "gpt-4o", "gpt-4.1", "gemini-2.5-pro" },
+			copilot = {
+				"gpt-4o", -- OpenAI
+				"gpt-4.1", -- OpenAI
+				"o3-mini", -- OpenAI
+				"o4-mini", -- OpenAI
+				"claude-3.5-sonnet", -- Anthropic
+				"claude-3.7-sonnet", -- Anthropic
+				"claude-sonnet-4", -- Anthropic
+				"claude-opus-4", -- Anthropic
+				"gemini-2.0-flash", -- Google
+				"gemini-2.5-pro", -- Google
+				"o1", -- OpenAI preview
+				"o3", -- OpenAI preview
+				"gpt-4.5", -- OpenAI preview
+			},
 			deepseek = { "deepseek-chat", "deepseek-reasoner" },
 			gemini = { "gemini-2.0-flash", "gemini-2.5-pro" },
 		}
