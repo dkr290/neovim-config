@@ -32,7 +32,7 @@ return {
 				"gpt-4.5", -- OpenAI preview
 			},
 			deepseek = { "deepseek-chat", "deepseek-reasoner" },
-			gemini = { "gemini-2.0-flash", "gemini-2.5-pro" },
+			gemini = { "gemini-2.0-flash", "gemini-2.5-pro", "gemini-2.5-flash-preview-05-20" },
 		}
 
 		-- Function to select provider dynamically
