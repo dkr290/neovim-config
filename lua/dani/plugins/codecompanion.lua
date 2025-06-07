@@ -42,6 +42,17 @@ return {
 						strategies = {
 							chat = {
 								adapter = _G.selected_provider,
+								tools = {
+									["mcp"] = {
+										callback = function()
+											return require("mcphub.extensions.codecompanion")
+										end,
+										opts = {
+											requires_approval = true,
+											temperature = 0.7,
+										},
+									},
+								},
 								slash_commands = {
 									["file"] = {
 										opts = {

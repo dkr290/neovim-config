@@ -90,3 +90,5 @@ end, { desc = "Show LSP schemas for current buffer" })
 keymap.set("n", "<leader>ys", function()
 	require("dani.plugins.helpers.schema").select_crd_schema()
 end, { desc = "Select YAML CRD Schema" })
+
+keymap.set("n", "<Leader>mc", ":MCPHub<CR>", { noremap = true, silent = true })
