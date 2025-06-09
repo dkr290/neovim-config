@@ -33,6 +33,16 @@ return {
 			},
 			deepseek = { "deepseek-chat", "deepseek-reasoner" },
 			gemini = { "gemini-2.0-flash", "gemini-2.5-pro", "gemini-2.5-flash-preview-05-20" },
+			openai = {
+				"gpt-4o",
+				"chatgpt-4o-latest",
+				"gpt-4o-mini",
+				"gpt-4.1",
+				"gpt-4.1-mini",
+				"gpt-4.1-nano",
+				"gpt-4",
+				"gpt-4-turbo",
+			},
 		}
 
 		-- Function to select provider dynamically
@@ -157,6 +167,18 @@ return {
 						schema = {
 							model = {
 								default = "gemini-2.0-flash",
+							},
+						},
+					})
+				end,
+				openai = function()
+					return require("codecompanion.adapters").extend("openai", {
+						env = {
+							api_key = os.getenv("OPENAI_API_KEY"), -- from env
+						},
+						schema = {
+							model = {
+								default = "gpt-4o",
 							},
 						},
 					})
