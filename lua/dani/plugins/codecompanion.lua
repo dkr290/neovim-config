@@ -42,6 +42,11 @@ return {
 				"gpt-4.1-nano",
 				"gpt-4",
 				"gpt-4-turbo",
+				"o4-mini",
+				"o3-mini",
+				"o3",
+				"o1",
+				"gpt-4.5",
 			},
 		}
 
