@@ -1,6 +1,6 @@
 return {
-	cmd = { "helm-ls", "serve" },
-	filetypes = { "helm" },
+	cmd = { "helm_ls", "serve" },
+	filetypes = { "helm", "helmfile" },
 	root_markers = { "Chart.yaml" },
 	single_file_support = true,
 	capabilities = {
