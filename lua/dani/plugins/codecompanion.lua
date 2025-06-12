@@ -5,6 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
 		"ravitemer/codecompanion-history.nvim", -- Save and load conversation history
+		"j-hui/fidget.nvim",
 		{
 			"ravitemer/mcphub.nvim", -- Manage MCP servers
 			cmd = "MCPHub",
@@ -112,6 +113,33 @@ return {
 				end
 			end)
 		end
+		-- Add an autocmd to show a "Thinking..." message when CodeCompanion starts processing
+		local progress = require("fidget.progress")
+		local handles = {}
+		local group = vim.api.nvim_create_augroup("CodeCompanionFidget", {})
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "CodeCompanionRequestStarted",
+			callback = function(e)
+				handles[e.data.id] = progress.handle.create({
+					title = "CodeCompanion",
+					message = "Thinking...",
+					lsp_client = { name = e.data.adapter.formatted_name },
+				})
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "CodeCompanionRequestFinished",
+			group = group,
+			callback = function(e)
+				local h = handles[e.data.id]
+				if h then
+					h.message = e.data.status == "success" and "Done" or "Failed"
+					h:finish()
+					handles[e.data.id] = nil
+				end
+			end,
+		})
 		require("codecompanion").setup({
 			display = {
 				chat = {
