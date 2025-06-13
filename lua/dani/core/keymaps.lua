@@ -62,9 +62,6 @@ keymap.set(
 )
 keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<CR>", { desc = "Add to Code Companion Chat", silent = true })
 
--- Keymap to trigger model and provider selection
-vim.api.nvim_set_keymap("n", "<leader>pm", ":lua _G.select_provider()<CR>", { noremap = true, silent = true })
-
 ------------------------------ LSP Debug mappings -----------------------------------
 keymap.set("n", "<leader>lS", function()
 	local clients = vim.lsp.get_clients({ bufnr = 0 })
