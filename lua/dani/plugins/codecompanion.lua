@@ -55,7 +55,7 @@ return {
 					opts = {
 						keymap = "gh",
 						auto_generate_title = true,
-						continue_last_chat = false,
+						continue_last_chat = true,
 						delete_on_clearing_chat = false,
 						picker = "snacks",
 						enable_logging = false,
@@ -96,15 +96,6 @@ return {
 				opts = {
 					show_model_choices = true,
 				},
-				copilot = function()
-					return require("codecompanion.adapters").extend("copilot", {
-						schema = {
-							model = {
-								default = "gemini-2.5-pro",
-							},
-						},
-					})
-				end,
 				deepseek = function()
 					return require("codecompanion.adapters").extend("deepseek", {
 						env = {
