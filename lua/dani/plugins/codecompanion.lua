@@ -43,6 +43,11 @@ return {
 			end,
 		})
 		require("codecompanion").setup({
+			opts = {
+				system_prompt = function()
+					return "You are a senior expert in DevOps, golang , cloud , python neovim. Provide concise and correct code suggestions and completions. Focus on efficiency and best practices."
+				end,
+			},
 			display = {
 				chat = {
 					render_headers = false,
@@ -95,7 +100,7 @@ return {
 					},
 					keymaps = {
 						send = {
-							modes = { n = "<C-s>", i = "<C-s>" },
+							modes = { n = { "<C-s>", "<CR>" }, i = "<C-s>" },
 							opts = {},
 						},
 						close = {
