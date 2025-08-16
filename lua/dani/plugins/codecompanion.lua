@@ -47,6 +47,13 @@ return {
 				chat = {
 					render_headers = false,
 					show_settings = false,
+					provider = "snacks",
+					prompt = "Prompt",
+					opts = {
+						show_default_actions = true, -- Show the default actions in the action palette?
+						show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+						title = "CodeCompanion actions", -- The title of the action palette
+					},
 				},
 			},
 			extensions = {
@@ -86,9 +93,30 @@ return {
 							},
 						},
 					},
+					keymaps = {
+						send = {
+							modes = { n = "<C-s>", i = "<C-s>" },
+							opts = {},
+						},
+						close = {
+							modes = { n = "<C-c>", i = "<C-c>" },
+							opts = {},
+						},
+					},
 				},
 				inline = {
 					adapter = "copilot",
+					keymaps = {
+						accept_change = {
+							modes = { n = "ga" },
+							description = "Accept the suggested change",
+						},
+						reject_change = {
+							modes = { n = "gr" },
+							opts = { nowait = true },
+							description = "Reject the suggested change",
+						},
+					},
 				},
 			},
 
@@ -115,7 +143,7 @@ return {
 						},
 						schema = {
 							model = {
-								default = "gemini-2.0-flash",
+								default = "gemini-2.5-flash",
 							},
 						},
 					})
