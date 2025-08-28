@@ -126,45 +126,47 @@ return {
 			},
 
 			adapters = {
-				opts = {
-					show_model_choices = true,
+				http = {
+					opts = {
+						show_model_choices = true,
+					},
+					deepseek = function()
+						return require("codecompanion.adapters").extend("deepseek", {
+							env = {
+								api_key = os.getenv("DEEPSEEK_API_KEY"),
+							},
+							schema = {
+								model = {
+									default = "deepseek-chat",
+								},
+							},
+						})
+					end,
+					gemini = function()
+						return require("codecompanion.adapters").extend("gemini", {
+							env = {
+								api_key = os.getenv("GEMINI_API_KEY"), -- from env
+							},
+							schema = {
+								model = {
+									default = "gemini-2.5-flash",
+								},
+							},
+						})
+					end,
+					openai = function()
+						return require("codecompanion.adapters").extend("openai", {
+							env = {
+								api_key = os.getenv("OPENAI_API_KEY"), -- from env
+							},
+							schema = {
+								model = {
+									default = "gpt-4o",
+								},
+							},
+						})
+					end,
 				},
-				deepseek = function()
-					return require("codecompanion.adapters").extend("deepseek", {
-						env = {
-							api_key = os.getenv("DEEPSEEK_API_KEY"),
-						},
-						schema = {
-							model = {
-								default = "deepseek-chat",
-							},
-						},
-					})
-				end,
-				gemini = function()
-					return require("codecompanion.adapters").extend("gemini", {
-						env = {
-							api_key = os.getenv("GEMINI_API_KEY"), -- from env
-						},
-						schema = {
-							model = {
-								default = "gemini-2.5-flash",
-							},
-						},
-					})
-				end,
-				openai = function()
-					return require("codecompanion.adapters").extend("openai", {
-						env = {
-							api_key = os.getenv("OPENAI_API_KEY"), -- from env
-						},
-						schema = {
-							model = {
-								default = "gpt-4o",
-							},
-						},
-					})
-				end,
 			},
 		})
 	end,
