@@ -40,6 +40,7 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+opt.backupcopy = "yes"
 
 -- disable some default providers
 vim.g["loaded_python_provider"] = 0
