@@ -89,3 +89,5 @@ keymap.set("n", "<leader>ys", function()
 end, { desc = "Select YAML CRD Schema" })
 
 keymap.set("n", "<Leader>mc", ":MCPHub<CR>", { noremap = true, silent = true })
+
+keymap.set({ "n", "i", "v" }, "<C-s>", ":w<CR>", { desc = "Save File" })

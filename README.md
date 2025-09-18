@@ -36,6 +36,8 @@ cd ~/.local/share/fonts && unzip Meslo.zip && rm *Windows* && rm Meslo.zip && fc
 git clone https://github.com/github/copilot.vim.git \
   ~/.config/nvim/pack/github/start/copilot.vim
 
+put this in .bashrc if working in Linux to unbind Ctrl-S from freezing terminal and to work to save files
+stty -ixon
 ```
 
 - one very good start is https://www.josean.com/posts/how-to-setup-neovim-2024
