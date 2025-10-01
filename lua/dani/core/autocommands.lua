@@ -84,3 +84,18 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	command = "silent! !golines --ignore-generated -w %",
 	group = "GoFormat",
 })
+vim.api.nvim_create_user_command("FormatToggleBuffer", function(_)
+	-- Get the current buffer number
+	local bufnr = vim.api.nvim_get_current_buf()
+
+	-- Toggle the buffer-local variable
+	vim.b[bufnr].disable_autoformat = not vim.b[bufnr].disable_autoformat
+
+	-- Display a notification
+	local status = vim.b[bufnr].disable_autoformat and "DISABLED" or "ENABLED"
+	vim.notify("Autoformat on Save " .. status .. " for current buffer.", vim.log.levels.INFO)
+end, {
+	desc = "Toggle autoformat on save for current buffer",
+})
+
+vim.keymap.set("n", "<leader>uf", ":FormatToggleBuffer<CR>", { desc = "Toggle Autoformat (Buffer)" })
