@@ -29,8 +29,33 @@ return {
 					vim.notify("SchemaStore.nvim not available for YAML LSP", vim.log.levels.WARN)
 				end
 
+				schemas["https://json.schemastore.org/github-workflow.json"] = {
+					".github/workflows/*.yaml",
+					".github/workflows/*.yml",
+				}
+
+				schemas["https://json.schemastore.org/github-action.json"] = {
+					"action.yaml",
+					"action.yml",
+				}
+				schemas["https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/argoproj.io/application_v1alpha1.json"] =
+					{
+						-- Common file patterns for ArgoCD Applications
+						"**/application.yaml",
+						"**/application.yml",
+						"**/app.yaml",
+						"**/app.yml",
+						"**/argocd-*",
+						"**/*-app.yaml",
+						"**/*-app.yml",
+						"**/*-application.yaml",
+						"**/*-application.yml",
+						"**/argocd/**/*.yaml",
+						"**/argocd/**/*.yml",
+					}
+
 				-- Add explicit Kubernetes schema for better detection
-				schemas["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.33.1-standalone-strict/all.json"] =
+				schemas["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.1-standalone-strict/all.json"] =
 					{
 						-- K8s directories
 						"**/k8s/**/*.yaml",
