@@ -98,6 +98,18 @@ return {
 						"**/*kube*.yaml",
 						"**/*kube*.yml",
 					}
+				-- recognize httproute
+				schemas["https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/main/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml"] =
+					{
+						"**/httproute.yaml",
+						"**/httproute.yml",
+						"**/gateway.yaml",
+						"**/gateway.yml",
+						"**/gateway/**/*.yaml",
+						"**/gateway/**/*.yml",
+						"**/*-httproute.yaml",
+						"**/*-httproute.yml",
+					}
 
 				return schemas
 			end)(),
