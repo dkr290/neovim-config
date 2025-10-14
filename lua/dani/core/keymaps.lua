@@ -20,10 +20,10 @@ keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- incremen
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
 
 -- window management
-keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
-keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
-keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
-keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+keymap.set("n", "<leader>jv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
+keymap.set("n", "<leader>jh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
+keymap.set("n", "<leader>je", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
+keymap.set("n", "<leader>jx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
 keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
 keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
@@ -91,3 +91,8 @@ end, { desc = "Select YAML CRD Schema" })
 keymap.set("n", "<Leader>mc", ":MCPHub<CR>", { noremap = true, silent = true })
 
 keymap.set({ "n", "i", "v" }, "<C-s>", ":w<CR>", { desc = "Save File" })
+
+keymap.set("n", "<leader>ll", "<C-w>l", { desc = "Go to left window" })
+keymap.set("n", "<leader>hh", "<C-w>h", { desc = "Go to right window" })
+keymap.set("n", "<leader>jj", "<C-w>j", { desc = "Go to lower window" })
+keymap.set("n", "<leader>kk", "<C-w>k", { desc = "Go to upper window" })
