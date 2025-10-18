@@ -96,3 +96,14 @@ keymap.set("n", "<leader>ll", "<C-w>l", { desc = "Go to left window" })
 keymap.set("n", "<leader>hh", "<C-w>h", { desc = "Go to right window" })
 keymap.set("n", "<leader>jj", "<C-w>j", { desc = "Go to lower window" })
 keymap.set("n", "<leader>kk", "<C-w>k", { desc = "Go to upper window" })
+
+-- Paste over word/selection
+vim.keymap.set("n", "<Leader>pp", 'viw"+p', { noremap = true, silent = true, desc = "Paste over word" })
+vim.keymap.set("v", "<Leader>pp", '"+p', { noremap = true, silent = true, desc = "Paste over selection" })
+
+-- Paste and keep selected (great for immediate operations)
+vim.keymap.set("n", "<Leader>ps", 'viw"+p`[v`]', { noremap = true, silent = true, desc = "Paste and select" })
+vim.keymap.set("v", "<Leader>ps", 'c<Esc>"+p`[v`]', { noremap = true, silent = true, desc = "Paste and re-select" })
+
+-- Bonus: Delete to black hole and paste (doesn't overwrite yank register)
+vim.keymap.set("n", "<Leader>pd", '"_diw"+P', { noremap = true, silent = true, desc = "Clean paste over word" })
