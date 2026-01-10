@@ -1,27 +1,17 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
 	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
 	dependencies = {
 		"windwp/nvim-ts-autotag",
 	},
 	config = function()
-		-- import nvim-treesitter plugin
-		local treesitter = require("nvim-treesitter.configs")
+		local ts = require("nvim-treesitter")
 
-		-- configure treesitter
-		treesitter.setup({ -- enable syntax highlighting
-			highlight = {
-				enable = true,
-			},
-			-- enable indentation
-			indent = { enable = true },
-			-- enable autotagging (w/ nvim-ts-autotag plugin)
-			autotag = {
-				enable = true,
-			},
-			auto_install = true,
-			-- ensure these language parsers are installed
+		-- Using .setup with ensure_installed is the "Quiet" way.
+		-- It checks if the parser exists on disk first.
+		ts.setup({
 			ensure_installed = {
 				"json",
 				"javascript",
@@ -47,18 +37,23 @@ return {
 				"terraform",
 				"cmake",
 				"hcl",
-				"bash",
 				"templ",
 			},
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<C-space>",
-					node_incremental = "<C-space>",
-					scope_incremental = false,
-					node_decremental = "<bs>",
-				},
-			},
+			-- This is the key: set this to false to stop the automatic
+			-- background compilation on every single startup.
+			auto_install = false,
 		})
+
+		-- Manually enable the colors/indent via autocmd
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function()
+				local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+				if lang then
+					pcall(vim.treesitter.start)
+				end
+			end,
+		})
+
+		require("nvim-ts-autotag").setup()
 	end,
 }
