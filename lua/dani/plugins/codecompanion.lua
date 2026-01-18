@@ -154,6 +154,54 @@ return {
 							},
 						})
 					end,
+					nanogpt = function()
+						return require("codecompanion.adapters").extend("openai", {
+							-- 1. SET THE BASE URL HERE (Top level)
+							url = "https://nano-gpt.com/api/v1/chat/completions",
+
+							-- 2. DEFINE HEADERS HERE (Top level)
+							headers = {
+								["Authorization"] = "Bearer ${api_key}",
+								["Content-Type"] = "application/json",
+							},
+
+							env = {
+								api_key = os.getenv("NANOGPT_API_KEY"),
+							},
+
+							schema = {
+								model = {
+									default = "gpt-4o",
+									choices = function()
+										local curl = require("plenary.curl")
+										local apiKey = os.getenv("NANOGPT_API_KEY")
+
+										-- This part works (it fetches from NanoGPT correctly)
+										local res = curl.get("https://nano-gpt.com/api/v1/models", {
+											headers = {
+												Authorization = "Bearer " .. apiKey,
+												["Content-Type"] = "application/json",
+											},
+										})
+
+										if res.status == 200 then
+											local ok, decoded = pcall(vim.fn.json_decode, res.body)
+											if ok and decoded then
+												local models = {}
+												local list = decoded.data or decoded
+												for _, model in ipairs(list) do
+													table.insert(models, model.id)
+												end
+												table.sort(models)
+												return models
+											end
+										end
+										return { "gpt-4o" }
+									end,
+								},
+							},
+						})
+					end,
 					openai = function()
 						return require("codecompanion.adapters").extend("openai", {
 							env = {
