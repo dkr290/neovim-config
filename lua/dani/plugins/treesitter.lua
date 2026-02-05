@@ -67,21 +67,14 @@ return {
 
 		-- Setup treesitter
 		TS.setup(opts)
-
-		-- Get installed parsers
-		local installed = TS.get_installed()
-		local installed_set = {}
-		for _, lang in ipairs(installed) do
-			installed_set[lang] = true
-		end
-
-		-- Install missing parsers
-		local to_install = vim.tbl_filter(function(lang)
-			return not installed_set[lang]
-		end, opts.ensure_installed or {})
-
-		if #to_install > 0 then
-			TS.install(to_install, { summary = true })
+		-- Install missing parsers (only once)
+		-- To reinstall parsers, delete: ~/.local/share/nvim/treesitter_installed
+		local flag_file = vim.fn.stdpath("data") .. "/treesitter_installed"
+		if vim.fn.filereadable(flag_file) == 0 then
+			vim.defer_fn(function()
+				TS.install(opts.ensure_installed or {}, { summary = true })
+				vim.fn.writefile({}, flag_file)
+			end, 100)
 		end
 
 		-- FileType autocmd for highlighting, indents, and folds
