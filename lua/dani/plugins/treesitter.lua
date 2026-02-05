@@ -23,6 +23,7 @@ return {
 				"markdown",
 				"markdown_inline",
 				"bash",
+				"latex",
 				"lua",
 				"vim",
 				"dockerfile",
