@@ -68,6 +68,7 @@ return {
 		-- Setup treesitter
 		TS.setup(opts)
 		-- Install missing parsers (only once)
+		--`:TSUpdate` - updates all installed parsers (no need to delete flag file)
 		-- To reinstall parsers, delete: ~/.local/share/nvim/treesitter_installed
 		local flag_file = vim.fn.stdpath("data") .. "/treesitter_installed"
 		if vim.fn.filereadable(flag_file) == 0 then
