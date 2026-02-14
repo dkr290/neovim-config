@@ -29,7 +29,6 @@ return {
 			"jsdoc",
 			"json",
 			"jsonc",
-			"kulala_http",
 			"latex",
 			"lua",
 			"luadoc",

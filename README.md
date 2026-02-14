@@ -12,6 +12,7 @@ sudo apt install python3-debugpy
 sudo apt install fd-find
 sudo apt install magic
 sudo apt install luarocks
+brew install tree-sitter-cli
 #install npm if it is not installed
 # better locally
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
