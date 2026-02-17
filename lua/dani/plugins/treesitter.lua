@@ -38,6 +38,7 @@ return {
 			"make",
 			"printf",
 			"python",
+			"proto",
 			"query",
 			"regex",
 			"templ",

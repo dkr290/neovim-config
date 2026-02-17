@@ -13,6 +13,7 @@ sudo apt install fd-find
 sudo apt install magic
 sudo apt install luarocks
 brew install tree-sitter-cli
+brew install buf
 #install npm if it is not installed
 # better locally
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
