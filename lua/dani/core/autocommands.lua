@@ -105,4 +105,10 @@ end, {
 	desc = "Toggle autoformat on save for current buffer",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
+
 vim.keymap.set("n", "<leader>uf", ":FormatToggleBuffer<CR>", { desc = "Toggle Autoformat (Buffer)" })

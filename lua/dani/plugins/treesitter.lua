@@ -2,6 +2,7 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
+	main = "nvim-treesitter",
 	dependencies = {
 		"windwp/nvim-ts-autotag",
 	},
@@ -52,7 +53,4 @@ return {
 			"yaml",
 		},
 	},
-	config = function(_, opts)
-		require("nvim-treesitter").setup(opts)
-	end,
 }
