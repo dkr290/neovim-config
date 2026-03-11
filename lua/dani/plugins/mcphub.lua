@@ -7,6 +7,7 @@ return {
 	},
 	-- Installs the mcp-hub Express server globally via npm
 	build = "npm install -g mcp-hub@latest",
+	enabled = false, -- remove it when they support new version of codecompagnion
 	config = function()
 		-- Basic setup - detailed configuration below
 		require("mcphub").setup({
