@@ -24,105 +24,105 @@ return {
 			end,
 		},
 	},
-	-- Catppuccin
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		opts = {
-			flavour = "mocha", -- latte, frappe, macchiato, mocha
-			transparent_background = false,
-			integrations = {
-				cmp = true,
-				gitsigns = true,
-				treesitter = true,
-				telescope = { enabled = true },
-			},
-		},
-	},
-
-	-- Kanagawa
-	{
-		"rebelot/kanagawa.nvim",
-		priority = 1000,
-		opts = {
-			theme = "wave", -- wave, dragon, lotus
-			background = { dark = "wave", light = "lotus" },
-		},
-	},
-
-	-- Rose Pine
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		priority = 1000,
-		opts = {
-			variant = "moon", -- auto, main, moon, dawn
-			dark_variant = "moon",
-		},
-	},
-
-	-- Nightfox
-	{
-		"EdenEast/nightfox.nvim",
-		priority = 1000,
-		opts = {
-			options = {
-				transparent = false,
-				styles = {
-					comments = "italic",
-					keywords = "bold",
-				},
-			},
-		},
-	},
-
-	-- Everforest
-	{
-		"sainnhe/everforest",
-		priority = 1000,
-		config = function()
-			vim.g.everforest_background = "hard" -- soft, medium, hard
-			vim.g.everforest_better_performance = 1
-		end,
-	},
-
-	-- Gruvbox Material
-	{
-		"sainnhe/gruvbox-material",
-		priority = 1000,
-		config = function()
-			vim.g.gruvbox_material_background = "hard" -- soft, medium, hard
-			vim.g.gruvbox_material_better_performance = 1
-		end,
-	},
-
-	-- Gruvbox
-	{
-		"ellisonleao/gruvbox.nvim",
-		priority = 1000,
-		opts = {
-			contrast = "hard", -- soft, medium, hard
-		},
-	},
-
-	-- GitHub Theme
-	{
-		"projekt0n/github-nvim-theme",
-		priority = 1000,
-		config = function()
-			require("github-theme").setup({})
-		end,
-	},
-
-	-- Night Owl
-	{
-		"oxfist/night-owl.nvim",
-		priority = 1000,
-		opts = {
-			bold = true,
-			italics = true,
-			underline = true,
-		},
-	},
+	-- 	-- Catppuccin
+	-- 	{
+	-- 		"catppuccin/nvim",
+	-- 		name = "catppuccin",
+	-- 		priority = 1000,
+	-- 		opts = {
+	-- 			flavour = "mocha", -- latte, frappe, macchiato, mocha
+	-- 			transparent_background = false,
+	-- 			integrations = {
+	-- 				cmp = true,
+	-- 				gitsigns = true,
+	-- 				treesitter = true,
+	-- 				telescope = { enabled = true },
+	-- 			},
+	-- 		},
+	-- 	},
+	--
+	-- 	-- Kanagawa
+	-- 	{
+	-- 		"rebelot/kanagawa.nvim",
+	-- 		priority = 1000,
+	-- 		opts = {
+	-- 			theme = "wave", -- wave, dragon, lotus
+	-- 			background = { dark = "wave", light = "lotus" },
+	-- 		},
+	-- 	},
+	--
+	-- 	-- Rose Pine
+	-- 	{
+	-- 		"rose-pine/neovim",
+	-- 		name = "rose-pine",
+	-- 		priority = 1000,
+	-- 		opts = {
+	-- 			variant = "moon", -- auto, main, moon, dawn
+	-- 			dark_variant = "moon",
+	-- 		},
+	-- 	},
+	--
+	-- 	-- Nightfox
+	-- 	{
+	-- 		"EdenEast/nightfox.nvim",
+	-- 		priority = 1000,
+	-- 		opts = {
+	-- 			options = {
+	-- 				transparent = false,
+	-- 				styles = {
+	-- 					comments = "italic",
+	-- 					keywords = "bold",
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	},
+	--
+	-- 	-- Everforest
+	-- 	{
+	-- 		"sainnhe/everforest",
+	-- 		priority = 1000,
+	-- 		config = function()
+	-- 			vim.g.everforest_background = "hard" -- soft, medium, hard
+	-- 			vim.g.everforest_better_performance = 1
+	-- 		end,
+	-- 	},
+	--
+	-- 	-- Gruvbox Material
+	-- 	{
+	-- 		"sainnhe/gruvbox-material",
+	-- 		priority = 1000,
+	-- 		config = function()
+	-- 			vim.g.gruvbox_material_background = "hard" -- soft, medium, hard
+	-- 			vim.g.gruvbox_material_better_performance = 1
+	-- 		end,
+	-- 	},
+	--
+	-- 	-- Gruvbox
+	-- 	{
+	-- 		"ellisonleao/gruvbox.nvim",
+	-- 		priority = 1000,
+	-- 		opts = {
+	-- 			contrast = "hard", -- soft, medium, hard
+	-- 		},
+	-- 	},
+	--
+	-- 	-- GitHub Theme
+	-- 	{
+	-- 		"projekt0n/github-nvim-theme",
+	-- 		priority = 1000,
+	-- 		config = function()
+	-- 			require("github-theme").setup({})
+	-- 		end,
+	-- 	},
+	--
+	-- 	-- Night Owl
+	-- 	{
+	-- 		"oxfist/night-owl.nvim",
+	-- 		priority = 1000,
+	-- 		opts = {
+	-- 			bold = true,
+	-- 			italics = true,
+	-- 			underline = true,
+	-- 		},
+	-- 	},
 }
