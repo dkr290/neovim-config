@@ -90,7 +90,7 @@ end, { desc = "Select YAML CRD Schema" })
 
 keymap.set("n", "<Leader>mc", ":MCPHub<CR>", { noremap = true, silent = true })
 
-keymap.set({ "n", "i", "v" }, "<C-s>", ":w<CR>", { desc = "Save File" })
+keymap.set({ "n", "i", "v" }, "<C-s>", ":w!<CR>", { desc = "Save File" })
 
 keymap.set("n", "<leader>ll", "<C-w>l", { desc = "Go to left window" })
 keymap.set("n", "<leader>hh", "<C-w>h", { desc = "Go to right window" })
