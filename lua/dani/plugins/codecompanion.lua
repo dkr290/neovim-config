@@ -214,6 +214,66 @@ return {
 							},
 						})
 					end,
+					localai = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							name = "localai",
+							opts = {
+								-- Move configuration options here (not in env)
+								show_model_choices = true,
+								models_endpoint = "/v1/models", -- LocalAI endpoint for listing models
+							},
+							env = {
+
+								url = os.getenv("LOCALAI_URL") or "http://192.168.1.101:8080",
+								api_key = "localai", -- LocalAI ignores this but the field is required
+								chat_url = "/v1/chat/completions",
+							},
+							schema = {
+								model = {
+									default = "qwen3.6-35b-a3b-claude-4.6-opus-reasoning-distilled",
+									choices = function()
+										local curl = require("plenary.curl")
+										local url = "http://localai:8080"
+										local models_endpoint = "/v1/models"
+
+										-- This part works (it fetches from LocalAI correctly)
+										local res = curl.get(url .. models_endpoint, {
+											headers = {
+												["Authorization"] = "Bearer localai",
+												["Content-Type"] = "application/json",
+											},
+											timeout = 5000, -- Add timeout (ms)
+										})
+
+										if res.status == 200 then
+											local ok, decoded = pcall(vim.fn.json_decode, res.body)
+											if ok and decoded then
+												local models = {}
+												-- LocalAI returns models in "data" field (OpenAI compatible format)
+												local list = decoded.data or decoded
+												if list and type(list) == "table" then
+													for _, model in ipairs(list) do
+														-- Handle both "id" and "model" field names
+														local model_id = model.id or model.model
+														if model_id then
+															table.insert(models, model_id)
+														end
+													end
+													table.sort(models)
+													return models
+												end
+											end
+										end
+										-- Fallback to static list if fetch fails
+										return {
+											"qwen3.6-35b-a3b-claude-4.6-opus-reasoning-distilled",
+											"deepseek-coder-v2-lite-instruct",
+										}
+									end,
+								},
+							},
+						})
+					end,
 				},
 			},
 		})
