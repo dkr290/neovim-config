@@ -233,7 +233,7 @@ return {
 									default = "qwen3.6-35b-a3b-claude-4.6-opus-reasoning-distilled",
 									choices = function()
 										local curl = require("plenary.curl")
-										local url = "http://localai:8080" or os.getenv("LOCALAI_URL") or "http://192.168.8.101:8080"
+										local url = "http://localai:8080" or os.getenv("LOCALAI_URL") or "http://192.168.1.101:8080"
 										local models_endpoint = "/v1/models"
 
 										-- This part works (it fetches from LocalAI correctly)
