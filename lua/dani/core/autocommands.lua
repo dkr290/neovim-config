@@ -106,28 +106,22 @@ end, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  desc = "Automatically install missing Treesitter parsers and start highlighting",
-  callback = function(args)
-    local lang = vim.bo[args.buf].filetype
-    -- Skip empty filetypes or special buffers like alpha/Telescope
-    if lang == "" or vim.bo[args.buf].buftype ~= "" then return end
+	desc = "Automatically install missing Treesitter parsers and start highlighting",
+	callback = function(args)
+		local lang = vim.bo[args.buf].filetype
+		-- Skip empty filetypes or special buffers like alpha/Telescope
+		if lang == "" or vim.bo[args.buf].buftype ~= "" then
+			return
+		end
 
-    -- Try starting Treesitter natively
-    local status, _ = pcall(vim.treesitter.start)
-    
-    -- If it fails because the parser is missing, install it silently
-    if not status then
-      -- Run Neovim's native install command in the background
-      vim.cmd("silent! TSInstall " .. lang)
-    end
-  end,
+		-- Try starting Treesitter natively
+		local status, _ = pcall(vim.treesitter.start)
+
+		-- If it fails because the parser is missing, install it silently
+		if not status then
+			-- Run Neovim's native install command in the background
+			vim.cmd("silent! TSInstall " .. lang)
+		end
+	end,
 })
 vim.keymap.set("n", "<leader>uf", ":FormatToggleBuffer<CR>", { desc = "Toggle Autoformat (Buffer)" })
-vim.keymap.set(
-  "n",
-  "<leader>ku",
-  function()
-    require("kubectl").toggle({ tab = true })   -- or false
-  end,
-  { noremap = true, silent = true }
-)
