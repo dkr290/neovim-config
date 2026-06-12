@@ -123,3 +123,11 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 vim.keymap.set("n", "<leader>uf", ":FormatToggleBuffer<CR>", { desc = "Toggle Autoformat (Buffer)" })
+vim.keymap.set(
+  "n",
+  "<leader>ku",
+  function()
+    require("kubectl").toggle({ tab = true })   -- or false
+  end,
+  { noremap = true, silent = true }
+)
