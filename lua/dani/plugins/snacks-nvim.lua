@@ -7,7 +7,7 @@ return {
 		bigfile = { enabled = true },
 		dashboard = { enabled = true },
 		explorer = { enabled = false },
-		indent = { enabled = false },
+		indent = { enabled = true },
 		input = { enabled = true },
 		notifier = {
 			enabled = true,
@@ -25,7 +25,7 @@ return {
 		scope = { enabled = true },
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
-		words = { enabled = false },
+		words = { enabled = true },
 		inlay_hints = { enabled = true },
 		styles = {
 			notification = {
