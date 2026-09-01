@@ -69,6 +69,20 @@ vim.filetype.add({
 		[".*%.dockerfile"] = "dockerfile",
 	},
 })
+-- Helm chart templates: detect yaml files under */templates/ that belong to a chart (Chart.yaml upward)
+vim.filetype.add({
+	pattern = {
+		[".*/templates/.*%.ya?ml"] = {
+			priority = 10,
+			function(path, _)
+				if vim.fs.find("Chart.yaml", { upward = true, path = vim.fs.dirname(path) })[1] then
+					return "helm"
+				end
+				return "yaml"
+			end,
+		},
+	},
+})
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.http",
 	callback = function()
