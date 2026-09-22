@@ -29,6 +29,15 @@ return {
 			map("n", "<leader>hu", gs.undo_stage_hunk, "Undo stage hunk")
 
 			map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
+			-- Populate quickfix list with all changed hunks across the entire project
+			map("n", "<leader>hQ", function()
+				gs.setqflist("all")
+			end, "Project hunks to Quickfix")
+
+			-- Open side-by-side diff against main for the current file
+			map("n", "<leader>hm", function()
+				gs.diffthis("main")
+			end, "Diff against main")
 
 			map("n", "<leader>hb", function()
 				gs.blame_line({ full = true })
